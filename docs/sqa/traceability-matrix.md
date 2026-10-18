@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-010 (Python source of MIL-001) and RC-011 (quality workflow) | [2f60adf] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | [4716b8d] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | [4716b8d] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | [2c661f6] |
 
 ---
 
@@ -35,6 +35,8 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | Python source of MIL-001 (`src/rain_alert`, `tests`) | PY | - | - | [ADR-0001], [MIL-001] | - | [RC-010] |
 | CI workflow `.gitea/workflows/quality.yml` | WF | - | - | [MIL-001] | - | [RC-011] |
 | Python source of MIL-002 (`domain`, `application`, `infrastructure` settings and OpenWeather client) | PY | - | - | [ADR-0001], [MIL-002] | - | [RC-012] |
+| Python source of MIL-003 (`application` use case, notifiers, scheduler, `main`) | PY | - | - | [ADR-0001], [MIL-003] | - | [RC-013] |
+| `compose.yaml` and `Dockerfile` | YML | - | - | [ADR-0001], [MIL-003] | - | [RC-014] |
 
 ## Coverage Notes
 
@@ -69,3 +71,6 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [2f60adf]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2f60adffb0c2083791d0cd4a0f9002a79d318654
 [RC-012]: ./reviews/rc-012-py-mil-002.md
 [4716b8d]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/4716b8d87a4273347d557f15557b667d555b0fc9
+[RC-013]: ./reviews/rc-013-py-mil-003.md
+[RC-014]: ./reviews/rc-014-compose-file.md
+[2c661f6]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2c661f6f3db29c96b4cf1a482f5565d80f6c72d9

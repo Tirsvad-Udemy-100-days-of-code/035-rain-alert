@@ -18,7 +18,11 @@ dev = [
     "pytest-cov>=5",
     "ruff>=0.6",
     "mypy>=1.11",
+    "tzdata; sys_platform == 'win32'",
 ]
+
+[project.scripts]
+rain-alert = "rain_alert.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

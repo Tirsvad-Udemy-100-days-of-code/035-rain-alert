@@ -1,13 +1,18 @@
 """Web requests with the standard library, and the errors they can raise."""
 
 import base64
+import json
 import urllib.error
 import urllib.parse
 import urllib.request
 from collections.abc import Mapping
 from typing import Protocol
 
-from rain_alert.constants import MAX_ERROR_BODY_CHARS, REQUEST_TIMEOUT_SECONDS
+from rain_alert.constants import (
+    MAX_ERROR_BODY_CHARS,
+    MAX_ERROR_MESSAGE_CHARS,
+    REQUEST_TIMEOUT_SECONDS,
+)
 
 
 class HttpError(Exception):
@@ -30,6 +35,22 @@ class HttpStatusError(HttpError):
         super().__init__(f"HTTP status {status}")
         self.status: int = status
         self.body: str = body
+
+
+def explanation(body: str) -> str:
+    """@brief Pick the explanation out of a service's error answer.
+
+    @param body The start of the answer.
+    @return The ``message`` field when the answer is JSON (shortened), otherwise
+        a hint.
+    """
+    try:
+        payload = json.loads(body)
+    except ValueError:
+        return "no explanation given"
+    if isinstance(payload, dict) and isinstance(payload.get("message"), str):
+        return str(payload["message"])[:MAX_ERROR_MESSAGE_CHARS]
+    return "no explanation given"
 
 
 class HttpGetter(Protocol):
@@ -119,3 +140,7 @@ class UrllibTransport:
             raise HttpStatusError(error.code, text[:MAX_ERROR_BODY_CHARS]) from error
         except (urllib.error.URLError, TimeoutError, OSError) as error:
             raise NetworkError("The service could not be reached.") from error
+
+
+class Transport(HttpGetter, FormPoster, Protocol):
+    """@brief Something that can both fetch a URL and post a form."""

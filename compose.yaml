@@ -1,0 +1,18 @@
+---
+# Runs Rain Alert in a container on Docker Desktop.
+#
+# Start:   docker compose up -d --build
+# Logs:    docker compose logs -f
+# Once:    docker compose run --rm rain-alert python -m rain_alert --once --dry-run
+# Stop:    docker compose down
+#
+# config.env is read by Docker Compose and passed to the container as environment
+# variables (copy config.env.example to config.env first). It is never copied into
+# the image.
+services:
+  rain-alert:
+    build: .
+    image: rain-alert:latest
+    container_name: rain-alert
+    env_file: config.env
+    restart: unless-stopped

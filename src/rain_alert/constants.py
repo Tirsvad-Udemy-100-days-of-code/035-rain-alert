@@ -93,7 +93,30 @@ DEFAULT_TIMEZONE: Final[str] = "Asia/Kuala_Lumpur"
 ## @name Web requests
 ## @{
 
-## @brief Longest part of a service's error answer kept in an error message.
-MAX_ERROR_BODY_CHARS: Final[int] = 300
+## @brief Longest part of a service's error answer that is read.
+MAX_ERROR_BODY_CHARS: Final[int] = 4000
+
+## @brief Longest explanation of a service shown in an error message.
+MAX_ERROR_MESSAGE_CHARS: Final[int] = 300
+
+## @}
+
+## @name Program
+## @{
+
+## @brief Longest sleep in one step, so a paused machine catches up on a long wait.
+SLEEP_STEP_SECONDS: Final[int] = 60
+
+## @brief Exit code: the run succeeded.
+EXIT_OK: Final[int] = 0
+
+## @brief Exit code: the forecast or the alert failed.
+EXIT_FAILED: Final[int] = 1
+
+## @brief Exit code: a setting is missing or invalid.
+EXIT_BAD_SETTINGS: Final[int] = 2
+
+## @brief Format of the log lines.
+LOG_FORMAT: Final[str] = "%(asctime)s %(levelname)s %(message)s"
 
 ## @}

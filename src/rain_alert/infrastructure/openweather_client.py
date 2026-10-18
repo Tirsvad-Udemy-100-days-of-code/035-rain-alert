@@ -7,7 +7,12 @@ from typing import Any
 from rain_alert.application.errors import ForecastUnavailableError
 from rain_alert.constants import FORECAST_UNITS, FORECAST_URL
 from rain_alert.domain.hourly_forecast import HourlyForecast
-from rain_alert.infrastructure.http import HttpError, HttpGetter, HttpStatusError
+from rain_alert.infrastructure.http import (
+    HttpError,
+    HttpGetter,
+    HttpStatusError,
+    explanation,
+)
 
 
 class OpenWeatherClient:
@@ -59,28 +64,13 @@ class OpenWeatherClient:
             raw = self._transport.get(self.request_url())
         except HttpStatusError as error:
             raise ForecastUnavailableError(
-                f"OpenWeather answered {error}: {_service_message(error.body)}"
+                f"OpenWeather answered {error}: {explanation(error.body)}"
             ) from error
         except HttpError as error:
             raise ForecastUnavailableError(
                 "OpenWeather could not be reached."
             ) from error
         return _parse(raw, hours)
-
-
-def _service_message(body: str) -> str:
-    """@brief Pick the explanation out of an error answer.
-
-    @param body The start of the answer.
-    @return The ``message`` field when the answer is JSON, otherwise a hint.
-    """
-    try:
-        payload = json.loads(body)
-    except ValueError:
-        return "no explanation given"
-    if isinstance(payload, dict) and isinstance(payload.get("message"), str):
-        return str(payload["message"])
-    return "no explanation given"
 
 
 def _parse(raw: bytes, hours: int) -> list[HourlyForecast]:

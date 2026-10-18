@@ -126,3 +126,11 @@ def test_api_key_never_appears_when_the_answer_is_unusable() -> None:
     with pytest.raises(ForecastUnavailableError) as caught:
         _client(FakeTransport(b"nonsense")).next_hours(12)
     assert API_KEY not in str(caught.value)
+
+
+def test_long_service_message_is_shortened_but_still_read() -> None:
+    body = json.dumps({"cod": 401, "message": "Subscription needed. " + "x" * 900})
+    with pytest.raises(ForecastUnavailableError) as caught:
+        _client(FakeTransport(error=HttpStatusError(401, body))).next_hours(12)
+    assert "Subscription needed." in str(caught.value)
+    assert len(str(caught.value)) < 400
