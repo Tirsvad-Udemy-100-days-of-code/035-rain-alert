@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | [4716b8d] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | [2c661f6] |
 
 ---
 
@@ -73,3 +73,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [4716b8d]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/4716b8d87a4273347d557f15557b667d555b0fc9
 [RC-013]: ./reviews/rc-013-py-mil-003.md
 [RC-014]: ./reviews/rc-014-compose-file.md
+[2c661f6]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2c661f6f3db29c96b4cf1a482f5565d80f6c72d9

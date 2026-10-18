@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [2c661f6] |
 
 ---
 
@@ -57,3 +57,4 @@ Go — every applicable Mandatory criterion passes. Mode: autonomous, not indepe
 
 [QC-YML-001]: ../../../framework/qc/code/qc-yaml.md
 [ADR-0001]: ../../adr/adr-0001-architecture-and-dependencies.md
+[2c661f6]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2c661f6f3db29c96b4cf1a482f5565d80f6c72d9
