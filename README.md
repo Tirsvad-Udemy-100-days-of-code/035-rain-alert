@@ -113,6 +113,10 @@ python -m rain_alert --once
 python -m rain_alert
 ```
 
+The alert as it arrives in WhatsApp (everything except the message is blurred):
+
+![The alert in WhatsApp][screenshot-whatsapp]
+
 | Rain expected | No rain expected |
 | --- | --- |
 | ![Rain expected][screenshot-rain] | ![No rain expected][screenshot-dry] |
@@ -193,6 +197,7 @@ The documents a newcomer needs, in reading order.
 [repository]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert
 [documentation]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki
 [issues]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/issues
+[screenshot-whatsapp]: ./docs/images/whatsapp-message.png
 [screenshot-rain]: ./docs/images/dry-run-rain.png
 [screenshot-dry]: ./docs/images/dry-run-no-rain.png
 [screenshot-docker]: ./docs/images/docker-container.png

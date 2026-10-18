@@ -20,6 +20,8 @@ python -m rain_alert
 
 The program sends one message when any weather condition id of the next 12 hours is below 700 (thunderstorm, drizzle, rain, snow), and nothing otherwise.
 
+![The alert as it arrives in WhatsApp (everything except the message is blurred)](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/whatsapp-message.png)
+
 ## Exit codes
 
 | Code | Meaning |

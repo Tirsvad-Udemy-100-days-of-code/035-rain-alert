@@ -8,6 +8,9 @@ config.env
 venv/
 env/
 
+# pywhatkit log (holds the phone number and the messages)
+PyWhatKit_DB.txt
+
 # Python
 __pycache__/
 *.py[cod]
