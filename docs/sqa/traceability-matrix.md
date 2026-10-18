@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-018 (Python source of MIL-005) | [a79371a] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | [80a3886] |
 
 ---
 
@@ -85,3 +85,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-018]: ./reviews/rc-018-py-mil-005.md
 [a79371a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/a79371a39d620ce761ca009ad1680d07ed2c61e0
 [RC-019]: ./reviews/rc-019-wiki-publish-workflow.md
+[80a3886]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/80a388609738516d3cdd6444ca3c42ad6457c3c0
