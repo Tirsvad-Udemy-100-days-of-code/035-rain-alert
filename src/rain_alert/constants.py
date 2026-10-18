@@ -64,6 +64,9 @@ CONFIG_FILE_NAME: Final[str] = "config.env"
 ## @brief Environment variable: OpenWeather API key.
 ENV_API_KEY: Final[str] = "OPENWEATHER_APIKEY"
 
+## @brief Environment variable: OpenWeather API key of the One Call 4.0 subscription.
+ENV_API_KEY_ONECALL4: Final[str] = "OPENWEATHER4_APIKEY"
+
 ## @brief Environment variable: recipient phone number.
 ENV_PHONE_NUMBER: Final[str] = "PHONENUMBER"
 

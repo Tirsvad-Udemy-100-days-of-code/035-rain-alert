@@ -68,7 +68,8 @@ cp config.env.example config.env
 
 | Setting | Meaning |
 | --- | --- |
-| `OPENWEATHER_APIKEY` | Your OpenWeather API key |
+| `OPENWEATHER_APIKEY` | Your OpenWeather API key (used for the free 2.5 forecast) |
+| `OPENWEATHER4_APIKEY` | Key of your One Call 4.0 subscription (used when `FORECAST_API=onecall4`; falls back to the key above) |
 | `FORECAST_API` | `onecall4` (One Call 4.0, needs the One Call by Call subscription; default) or `forecast25` (the free 2.5 forecast, one entry per three hours) |
 | `LATITUDE`, `LONGITUDE` | The place to check (default 2.927761, 101.897999) |
 | `PHONENUMBER` | Your WhatsApp number, international format |

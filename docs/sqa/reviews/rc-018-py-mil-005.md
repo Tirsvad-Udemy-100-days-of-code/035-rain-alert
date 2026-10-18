@@ -15,7 +15,7 @@
 
 ## Artifact Under Review
 
-- Instance reviewed: Python source of MIL-005 (OpenWeatherForecastClient, FORECAST_API setting, main and their tests)
+- Instance reviewed: Python source of MIL-005 (OpenWeatherForecastClient, FORECAST_API and OPENWEATHER4_APIKEY settings, main and their tests)
 - Checklist used: [QC-PY-001]
 - Scope: full review
 - Language and domain: n/a
@@ -37,7 +37,7 @@
 | 8 | Public modules, classes and functions have docstrings that say what, not how | Pass | All new modules, classes and functions carry Doxygen docstrings; `doxygen Doxyfile` reports no warning. |
 | 9 | Logging uses `logging`, not `print`; no secrets or personal data in log output | Pass | No printing; no new log line carries a secret; tests assert the API key is absent from errors of both clients and from logs. |
 | 10 | Classes and operations trace to the Design Class Diagram they implement; deviations are recorded | Pass | Classes trace to ADR-0001 as amended (RC-016): the second `ForecastSource` and the setting `FORECAST_API`. |
-| 11 | Tests exist for new behaviour, are named for the behaviour, and do not depend on order or the network | Pass | 21 new tests (120 in all) named for behaviour, no network. |
+| 11 | Tests exist for new behaviour, are named for the behaviour, and do not depend on order or the network | Pass | 25 new tests (124 in all) named for behaviour, no network. |
 | 12 | Type checker runs in strict mode without errors; `Any` is justified in a comment | Pass | `mypy --strict src tests` clean, with mypy 2.4.0 and with the pinned 1.11.2 of the shared workflow; the single `Any` stays justified in `_parse`. |
 | 13 | Dependencies are declared and pinned in the project's dependency file, none unused | Pass | `dependencies = []` unchanged. |
 | 14 | Each piece of knowledge (a business rule, constant, format, validation or query) is defined in one place; code is merged only where it expresses the same knowledge, not where it merely looks alike | Pass | Request sending, error mapping and parsing are shared by both clients in `_fetch` and `_parse`; the endpoint, period length and setting values are defined once in `constants.py`. |
