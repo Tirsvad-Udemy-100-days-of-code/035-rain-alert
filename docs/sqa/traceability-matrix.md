@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-010 (Python source of MIL-001) and RC-011 (quality workflow) | [2f60adf] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | [4716b8d] |
 
 ---
 
@@ -68,3 +68,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-011]: ./reviews/rc-011-ci-workflow-quality.md
 [2f60adf]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2f60adffb0c2083791d0cd4a0f9002a79d318654
 [RC-012]: ./reviews/rc-012-py-mil-002.md
+[4716b8d]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/4716b8d87a4273347d557f15557b667d555b0fc9
