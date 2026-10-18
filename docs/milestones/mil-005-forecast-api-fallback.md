@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [5da8060] |
 
 ---
 
@@ -72,3 +72,4 @@ A pull request with the 2.5 forecast client, the setting `FORECAST_API` and the 
 
 [BC-001]: ../business-case.md
 [MIL-004]: ./mil-004-documentation-and-wiki.md
+[5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
