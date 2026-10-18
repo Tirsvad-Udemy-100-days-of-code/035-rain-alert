@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | TM-001 |
-| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [ADR-0001] |
+| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [ADR-0001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-018 (Python source of MIL-005) | [a79371a] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | [80a3886] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | [80a3886] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | pending |
 
 ---
 
@@ -22,12 +22,12 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 
 | Artifact Instance | Type | Language | Domain | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- | --- | --- |
-| [BC-001] | BC | en | it | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001] | [RC-001] |
+| [BC-001] | BC | en | it | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001] | [RC-021] |
 | [SA-001] | SA | en | it | [BC-001] | [PP-001], [GOV-001] | [RC-002] |
-| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | - (no checklist for the Project Plan) |
-| [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-017] |
+| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] | - (no checklist for the Project Plan) |
+| [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-023] |
 | [GOV-001] | GOV | en | it | [BC-001], [SA-001] | [TM-001] | [RC-004] |
-| [ADR-0001] | ADR | - | - | [BC-001], [MIL-005] | source code under `src/` | [RC-016] |
+| [ADR-0001] | ADR | - | - | [BC-001], [MIL-005] | source code under `src/` | [RC-022] |
 | [MIL-001] | MIL | en | it | [BC-001], [PP-001] | source code, configuration and README | [RC-006] |
 | [MIL-002] | MIL | en | it | [BC-001], [PP-001], [MIL-001] | source code and tests of the domain, application and settings | [RC-007] |
 | [MIL-003] | MIL | en | it | [BC-001], [PP-001], [MIL-002] | source code, tests, Dockerfile and Compose file of the alert | [RC-008] |
@@ -40,6 +40,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | [MIL-005] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | source code and tests of the forecast fallback | [RC-015] |
 | Python source of MIL-005 (`OpenWeatherForecastClient`, `FORECAST_API`) | PY | - | - | [ADR-0001], [MIL-005] | - | [RC-018] |
 | CI workflow `.gitea/workflows/publish-wiki.yml` | WF | - | - | [MIL-004] | - | [RC-019] |
+| [MIL-006] | MIL | en | it | [BC-001], [PP-001], [MIL-005] | source code, tests and documentation of the pywhatkit notifier | [RC-020] |
 
 ## Coverage Notes
 
@@ -60,6 +61,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [MIL-003]: ../milestones/mil-003-whatsapp-alert-and-container.md
 [MIL-004]: ../milestones/mil-004-documentation-and-wiki.md
 [MIL-005]: ../milestones/mil-005-forecast-api-fallback.md
+[MIL-006]: ../milestones/mil-006-pywhatkit-notifier.md
 [RC-001]: ./reviews/rc-001-business-case.md
 [RC-002]: ./reviews/rc-002-stakeholder-analysis.md
 [RC-003]: ./reviews/rc-003-dictionary.md
@@ -86,3 +88,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [a79371a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/a79371a39d620ce761ca009ad1680d07ed2c61e0
 [RC-019]: ./reviews/rc-019-wiki-publish-workflow.md
 [80a3886]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/80a388609738516d3cdd6444ca3c42ad6457c3c0
+[RC-020]: ./reviews/rc-020-mil-006.md
+[RC-021]: ./reviews/rc-021-business-case-amendment.md
+[RC-022]: ./reviews/rc-022-adr-0001-amendment-2.md
+[RC-023]: ./reviews/rc-023-dictionary-amendment-2.md
