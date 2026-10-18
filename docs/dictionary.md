@@ -11,8 +11,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Forecast period in the definition of the hourly forecast; added forecast API | [5da8060] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Forecast period in the definition of the hourly forecast; added forecast API | [5da8060] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added WhatsApp Web message and alert channel | [6434347] |
 
 ---
 
@@ -33,6 +33,8 @@ Maps each Product Owner (PO) term to its professional IT term for Rain Alert. Th
 | location | en | latitude, longitude | The place whose weather is checked, here 2.927761, 101.897999. | BC, MIL | PY |
 | alert | en | Notifier | The component that tells the owner to bring an umbrella. | BC, MIL | PY |
 | WhatsApp message | en | TwilioWhatsAppNotifier | The alert sent as a WhatsApp message through the Twilio sandbox. | BC, MIL | PY |
+| WhatsApp Web message | en | PywhatkitNotifier | The alert sent as a WhatsApp message through WhatsApp Web in the browser of the host, with pywhatkit. | BC, MIL | PY |
+| alert channel | en | notifier | The setting that names how the alert is sent: `pywhatkit` or `twilio`. | BC, MIL | PY |
 | dry run | en | DryRunNotifier | A run that prints the message instead of sending it. | BC, MIL | PY |
 | alert time | en | alert_time | The local time of day at which the daily check runs, default 07:00. | BC, MIL | PY |
 | forecast API | en | forecast_api | The setting that names the OpenWeather endpoint used: `onecall4` or `forecast25`. | BC, MIL | PY |
@@ -52,3 +54,4 @@ Maps each Product Owner (PO) term to its professional IT term for Rain Alert. Th
 [SA-001]: ./stakeholder-analysis.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

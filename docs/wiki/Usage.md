@@ -11,7 +11,7 @@ python -m rain_alert
 ```
 
 - `--once --dry-run` checks now and prints the message instead of sending it. It needs no Twilio settings.
-- `--once` checks now and sends the WhatsApp message when rain is expected.
+- `--once` checks now and sends the WhatsApp message when rain is expected. With pywhatkit it opens WhatsApp Web in your default browser, which must be logged in.
 - Without options the program runs every day at `ALERT_TIME`.
 
 ![A dry run that expects rain](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/dry-run-rain.png)
@@ -32,7 +32,20 @@ The program sends one message when any weather condition id of the next 12 hours
 
 `FORECAST_API=onecall4` uses the One Call 4.0 hourly forecast, which needs the separate One Call by Call subscription. `FORECAST_API=forecast25` uses the free 2.5 forecast with one entry per three hours, as the course does.
 
-## Docker Desktop
+## Every morning on Windows
+
+pywhatkit needs your logged-in browser, so schedule `--once` with Windows Task Scheduler (the task runs while you are logged in). The commands create the daily task at 07:00, run it once now, and remove it:
+
+```powershell
+$python = (Resolve-Path .venv\Scripts\python.exe).Path
+schtasks /Create /TN "Rain Alert" /SC DAILY /ST 07:00 /IT /TR "cmd /c cd /d $PWD && $python -m rain_alert --once"
+schtasks /Run /TN "Rain Alert"
+schtasks /Delete /TN "Rain Alert" /F
+```
+
+## Docker Desktop (with Twilio)
+
+A container has no browser, so `compose.yaml` sets `NOTIFIER=twilio`.
 
 ```bash
 docker compose up -d --build
@@ -45,8 +58,8 @@ docker compose down
 
 The container reads `config.env` at start and checks the forecast every day at `ALERT_TIME`. It restarts with Docker Desktop.
 
-## WhatsApp through Twilio
+## WhatsApp through Twilio (optional)
 
 1. Open the Twilio Sandbox for WhatsApp in the Twilio console and join it from your phone.
-2. Put the account SID, auth token and sandbox number in `config.env`, and your own number in `PHONENUMBER`.
+2. Put the account SID, auth token and sandbox number in `config.env`, set `NOTIFIER=twilio`, and put your own number in `PHONENUMBER`.
 3. The sandbox forgets your phone after 72 hours without a message; join again if nothing arrives.

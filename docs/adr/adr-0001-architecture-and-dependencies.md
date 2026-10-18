@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | ADR-0001 |
-| CrossReference | [BC-001], [MIL-005] |
+| CrossReference | [BC-001], [MIL-005], [MIL-006] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the forecast endpoint is selectable (free 2.5 forecast as fallback), reason: HTTP 401 on One Call 4.0 | [5da8060] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the forecast endpoint is selectable (free 2.5 forecast as fallback), reason: HTTP 401 on One Call 4.0 | [5da8060] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the WhatsApp notifier is selectable (pywhatkit default, Twilio optional), reason: S01 uses pywhatkit on the host | [6434347] |
 
 Allowed Status values: `Proposed`, `Accepted`, `Rejected`, `Deprecated`, `Superseded by ADR-NNNN`.
 
@@ -44,6 +44,10 @@ Amendment of 2026-10-18 (forecast endpoint): the first live run answered HTTP 40
 
 3. Both endpoints behind the `ForecastSource` port, chosen by the setting `FORECAST_API`.
 
+Amendment of 2026-10-18 (WhatsApp delivery): S01 uses pywhatkit and runs the program on their own machine. A third option was evaluated:
+
+3. Both senders behind the `Notifier` port, chosen by the setting `NOTIFIER`: pywhatkit for a host run, Twilio for the container.
+
 Options for the daily schedule:
 
 1. Cron or Task Scheduler on the host. Outside the container and the repository.
@@ -51,7 +55,7 @@ Options for the daily schedule:
 
 ## Decision
 
-We use layers: `domain` holds `HourlyForecast` and `will_rain`; `application` holds the `ForecastSource` and `Notifier` ports and the `check_rain` use case; `infrastructure` holds the settings loader, the One Call 4.0 client, the Twilio WhatsApp notifier, the dry-run notifier and the scheduler; `main.py` is the composition root. The program is a command-line entry point, so there is no presentation layer. We send WhatsApp through the Twilio sandbox, call both APIs with the standard library `urllib.request`, so the runtime `dependencies` list stays empty, and use the One Call 4.0 hourly timeline with `units=metric` and the first 12 records. The forecast endpoint is chosen by the optional setting `FORECAST_API`: `onecall4` (the default, option 2) or `forecast25` (the free 2.5 forecast with `cnt` three-hour periods, as in the course; option 3 of the amendment). The rain rule stays the assignment's: any condition id below 700. The scheduler runs inside the container, with the time `ALERT_TIME` (default 07:00) in the zone `TZ` (default `Asia/Kuala_Lumpur`). All constants live in `src/rain_alert/constants.py`.
+We use layers: `domain` holds `HourlyForecast` and `will_rain`; `application` holds the `ForecastSource` and `Notifier` ports and the `check_rain` use case; `infrastructure` holds the settings loader, the One Call 4.0 client, the Twilio WhatsApp notifier, the dry-run notifier and the scheduler; `main.py` is the composition root. The program is a command-line entry point, so there is no presentation layer. We send WhatsApp through the Twilio sandbox, call both APIs with the standard library `urllib.request`, so the runtime `dependencies` list stays empty, and use the One Call 4.0 hourly timeline with `units=metric` and the first 12 records. The forecast endpoint is chosen by the optional setting `FORECAST_API`: `onecall4` (the default, option 2) or `forecast25` (the free 2.5 forecast with `cnt` three-hour periods, as in the course; option 3 of the amendment). The WhatsApp notifier is chosen by the optional setting `NOTIFIER`: `pywhatkit` (the default: WhatsApp Web in the browser of the host; the package is the optional extra `whatsapp`, imported only when a message is sent, so `dependencies` stays empty) or `twilio` (the Twilio sandbox, used by the Docker container, option 3 of the amendment). The rain rule stays the assignment's: any condition id below 700. The scheduler runs inside the container, with the time `ALERT_TIME` (default 07:00) in the zone `TZ` (default `Asia/Kuala_Lumpur`). All constants live in `src/rain_alert/constants.py`.
 
 Secrets and the location come from environment variables. Compose passes `config.env` with `env_file`; the image never contains it, `.gitignore` and `.dockerignore` exclude it, and `config.env.example` documents the keys. A small file reader in the settings loader lets a local run use the same file without overriding variables already set. The tokens in `.env` are for S01's repository administration only and are not read by the program.
 
@@ -70,6 +74,7 @@ Secrets and the location come from environment variables. Compose passes `config
 - Hand-written HTTP error handling instead of the `requests` and `twilio` conveniences.
 - One Call 4.0 is a separate OpenWeather subscription; the second source (`FORECAST_API=forecast25`) covers a key without it, at the cost of a second client and a coarser three-hour period.
 - The Twilio sandbox requires S01's phone to join it and expires after inactivity.
+- pywhatkit needs a desktop browser that is logged in to WhatsApp Web, so it cannot run in the container; the daily run on the host then needs Windows Task Scheduler or a terminal that stays open, and it types into a real browser, so it cannot be tested without one.
 - A container that must stay running uses a little memory all day, and a restart of Docker Desktop at the alert time can miss one alert.
 
 Quality-attribute impacts: portability improves (standard library only, container), security improves (secrets outside code and image), maintainability improves (inward dependencies), performance is unaffected for one request a day.
@@ -77,11 +82,14 @@ Quality-attribute impacts: portability improves (standard library only, containe
 ## Affected Artifacts
 
 - [BC-001] — objectives O1 to O7 and success criteria SC4, SC5, SC6 and SC8 are met by this design.
-- [MIL-005] — delivers the amendment.
+- [MIL-005] — delivers the forecast amendment.
+- [MIL-006] — delivers the WhatsApp amendment.
 
 ---
 
 [BC-001]: ../business-case.md
 [MIL-005]: ../milestones/mil-005-forecast-api-fallback.md
+[MIL-006]: ../milestones/mil-006-pywhatkit-notifier.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

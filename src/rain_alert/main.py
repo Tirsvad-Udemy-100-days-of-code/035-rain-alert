@@ -16,6 +16,8 @@ from rain_alert.application.rain_alert import run_rain_alert
 from rain_alert.infrastructure.http import Transport, UrllibTransport
 from rain_alert.infrastructure.notifiers import (
     DryRunNotifier,
+    PywhatkitNotifier,
+    pywhatkit_send,
     twilio_notifier_from_settings,
 )
 from rain_alert.infrastructure.openweather_client import (
@@ -103,6 +105,7 @@ def main(
     clock: Callable[[tzinfo], datetime] | None = None,
     sleep: Callable[[float], None] = time.sleep,
     max_runs: int | None = None,
+    whatsapp_web_send: Callable[[str, str], None] = pywhatkit_send,
 ) -> int:
     """@brief Run the program.
 
@@ -113,6 +116,7 @@ def main(
     @param clock Gives the current moment in a time zone, by default the system clock.
     @param sleep Waits the given number of seconds, by default ``time.sleep``.
     @param max_runs Stop the daily loop after this many runs (for tests).
+    @param whatsapp_web_send Sends through WhatsApp Web, by default pywhatkit.
     @return The exit code: 0 success, 1 the check or the alert failed, 2 a setting
         is missing or invalid.
     """
@@ -124,8 +128,10 @@ def main(
         notifier: Notifier
         if args.dry_run:
             notifier = DryRunNotifier(stdout or sys.stdout)
-        else:
+        elif settings.notifier == constants.NOTIFIER_TWILIO:
             notifier = twilio_notifier_from_settings(settings, web)
+        else:
+            notifier = PywhatkitNotifier(settings.phone_number, whatsapp_web_send)
         job = _make_job(_make_source(settings, web), notifier)
         if args.once:
             job()

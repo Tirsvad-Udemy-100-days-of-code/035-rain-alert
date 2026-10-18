@@ -2,7 +2,7 @@
 
 # Rain Alert
 
-Et program, der hver morgen tjekker vejrudsigten og sender dig en WhatsApp-besked, hvis det kommer til at regne inden for de næste 12 timer. Det er Dag 35-projektet i Udemys "100 Days of Code: The Complete Python Pro Bootcamp", og det kører i en Docker-container på Docker Desktop.
+Et program, der hver morgen tjekker vejrudsigten og sender dig en WhatsApp-besked, hvis det kommer til at regne inden for de næste 12 timer. Det er Dag 35-projektet i Udemys "100 Days of Code: The Complete Python Pro Bootcamp", og det kører på din egen computer med pywhatkit (WhatsApp Web) eller i en Docker-container med Twilio.
 
 ![Et tørkørsel, der forventer regn](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/dry-run-rain.png)
 

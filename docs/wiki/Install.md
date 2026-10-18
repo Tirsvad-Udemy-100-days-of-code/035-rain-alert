@@ -6,7 +6,8 @@
 
 - Python 3.13 or later with `venv`.
 - No third-party runtime dependencies. `pytest`, `ruff`, `mypy` (and `tzdata` on Windows) are development tools only.
-- For the daily alert: Docker Desktop, an OpenWeather API key and a Twilio account with the WhatsApp sandbox.
+- For the alert: an OpenWeather API key and a browser on your machine that is logged in to WhatsApp Web (pywhatkit).
+- Optional: Docker Desktop with a Twilio account and its WhatsApp sandbox.
 
 ## Windows (PowerShell)
 
@@ -28,6 +29,12 @@ python -m pip install -e ".[dev]"
 
 `python -m pip install --upgrade pip` upgrades pip inside the `.venv`. The `.venv` folder is ignored by git.
 
+To send with pywhatkit, install the optional extra:
+
+```bash
+python -m pip install -e ".[whatsapp]"
+```
+
 ## Settings
 
 Copy the example and fill in your own values. `config.env` is ignored by git and never copied into the Docker image.
@@ -43,6 +50,7 @@ cp config.env.example config.env
 | `FORECAST_API` | `onecall4` (default) or `forecast25` |
 | `LATITUDE`, `LONGITUDE` | The place to check |
 | `PHONENUMBER` | Your WhatsApp number, international format |
-| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | From the Twilio console |
+| `NOTIFIER` | `pywhatkit` (default) or `twilio` (used by the container) |
+| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | From the Twilio console (only for `NOTIFIER=twilio`) |
 | `TWILIO_WHATSAPP_FROM` | The Twilio sandbox number |
 | `ALERT_TIME`, `TZ` | Local time of the daily check and its time zone |

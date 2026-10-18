@@ -139,3 +139,17 @@ def test_missing_general_key_is_named_for_the_free_forecast() -> None:
         load_settings(
             variables | {"OPENWEATHER4_APIKEY": "k", "FORECAST_API": "forecast25"}
         )
+
+
+def test_notifier_defaults_to_pywhatkit() -> None:
+    assert load_settings(BASE).notifier == "pywhatkit"
+
+
+def test_notifier_accepts_twilio() -> None:
+    assert load_settings(BASE | {"NOTIFIER": " Twilio "}).notifier == "twilio"
+
+
+def test_unknown_notifier_is_named_without_its_value() -> None:
+    with pytest.raises(SettingsError, match="NOTIFIER") as caught:
+        load_settings(BASE | {"NOTIFIER": "carrier-pigeon"})
+    assert "carrier-pigeon" not in str(caught.value)

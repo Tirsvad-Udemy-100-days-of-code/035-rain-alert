@@ -42,6 +42,17 @@ UMBRELLA_MESSAGE: Final[str] = (
 
 ## @}
 
+## @name WhatsApp Web (pywhatkit)
+## @{
+
+## @brief Seconds pywhatkit waits for WhatsApp Web to load before it sends.
+WHATSAPP_WEB_WAIT_SECONDS: Final[int] = 15
+
+## @brief Seconds pywhatkit waits before it closes the browser tab after sending.
+WHATSAPP_WEB_CLOSE_SECONDS: Final[int] = 3
+
+## @}
+
 ## @name Twilio WhatsApp
 ## @{
 
@@ -63,6 +74,18 @@ CONFIG_FILE_NAME: Final[str] = "config.env"
 
 ## @brief Environment variable: OpenWeather API key.
 ENV_API_KEY: Final[str] = "OPENWEATHER_APIKEY"
+
+## @brief Environment variable: how the alert is sent.
+ENV_NOTIFIER: Final[str] = "NOTIFIER"
+
+## @brief Value of NOTIFIER for WhatsApp Web through pywhatkit (on the host).
+NOTIFIER_PYWHATKIT: Final[str] = "pywhatkit"
+
+## @brief Value of NOTIFIER for the Twilio WhatsApp sandbox (also in the container).
+NOTIFIER_TWILIO: Final[str] = "twilio"
+
+## @brief Notifier used when none is configured.
+DEFAULT_NOTIFIER: Final[str] = NOTIFIER_PYWHATKIT
 
 ## @brief Environment variable: OpenWeather API key of the One Call 4.0 subscription.
 ENV_API_KEY_ONECALL4: Final[str] = "OPENWEATHER4_APIKEY"
