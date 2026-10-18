@@ -36,6 +36,14 @@ Program menghantar satu mesej apabila mana-mana id keadaan cuaca dalam 12 jam ak
 
 `FORECAST_API=onecall4` menggunakan ramalan setiap jam One Call 4.0, yang memerlukan langganan One Call by Call yang berasingan. `FORECAST_API=forecast25` menggunakan ramalan 2.5 percuma dengan satu entri setiap tiga jam, seperti dalam kursus.
 
+## Jika mesej ditaip tetapi tidak dihantar
+
+pywhatkit membuka `web.whatsapp.com/send?phone=...&text=...`, mengklik tengah skrin **utama**, menunggu, dan menekan Enter.
+
+- Kekalkan tetingkap pelayar pada monitor utama semasa ia berjalan; pada monitor kedua klik tersasar dan teks kekal dalam kotak mesej.
+- Tutup tab WhatsApp Web yang lain dahulu, supaya mesej tidak ditaip dalam sembang yang dibuka oleh tab itu.
+- Jangan sentuh papan kekunci atau tetikus semasa menunggu (kira-kira 20 saat).
+
 ## Setiap pagi pada Windows
 
 pywhatkit memerlukan pelayar anda yang telah log masuk, jadi jadualkan `--once` dengan Windows Task Scheduler (tugas berjalan semasa anda log masuk). Arahan ini mencipta tugas harian pada 07:00, menjalankannya sekali sekarang dan memadamkannya semula:

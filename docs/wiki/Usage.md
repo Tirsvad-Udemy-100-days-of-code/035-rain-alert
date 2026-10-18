@@ -34,6 +34,14 @@ The program sends one message when any weather condition id of the next 12 hours
 
 `FORECAST_API=onecall4` uses the One Call 4.0 hourly forecast, which needs the separate One Call by Call subscription. `FORECAST_API=forecast25` uses the free 2.5 forecast with one entry per three hours, as the course does.
 
+## If the message is typed but not sent
+
+pywhatkit opens `web.whatsapp.com/send?phone=...&text=...`, clicks the centre of the **primary** screen, waits, and presses Enter.
+
+- Keep the browser window on the primary monitor while it runs; on a second monitor the click lands elsewhere and the text stays in the message box.
+- Close other WhatsApp Web tabs first, so the message is not typed into the chat that tab has open.
+- Do not touch the keyboard or mouse during the wait (about 20 seconds).
+
 ## Every morning on Windows
 
 pywhatkit needs your logged-in browser, so schedule `--once` with Windows Task Scheduler (the task runs while you are logged in). The commands create the daily task at 07:00, run it once now, and remove it:
