@@ -1,0 +1,29 @@
+# Doxygen configuration for Rain Alert (Python sources with Doxygen comments).
+# Run from the repository root:  doxygen Doxyfile
+# Output: doxygen/html/index.html
+
+PROJECT_NAME           = "Rain Alert"
+PROJECT_BRIEF          = "Daily WhatsApp alert when rain is expected in the next 12 hours"
+PROJECT_NUMBER         = 0.1.0
+OUTPUT_DIRECTORY       = doxygen
+CREATE_SUBDIRS         = NO
+OPTIMIZE_OUTPUT_JAVA   = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+INPUT                  = src
+FILE_PATTERNS          = *.py
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */__pycache__/*
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+JAVADOC_AUTOBRIEF      = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+HAVE_DOT               = NO
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = YES

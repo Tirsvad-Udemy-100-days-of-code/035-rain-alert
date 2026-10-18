@@ -1,0 +1,49 @@
+---
+# Quality checks of the Python sources.
+#
+# Purpose:  run ruff check, ruff format --check and mypy --strict on the tracked
+#           Python files under src/ with the shared reusable workflow of
+#           TirSystem/github-action (guides/quality-checks.md there). It changes
+#           no file and writes nothing outside the repository.
+# Triggers: a pull request or a push to main that changes Python files, the
+#           project configuration or this file.
+# Inputs:   languages and working-directory (src: the tests need pytest, which
+#           the shared tools do not install, so they are checked locally with
+#           `python -m mypy src tests`); tools-ref pins the shared script to
+#           the same release as the workflow.
+# Secrets:  none. Decision: Business Case BC-001, success criterion SC5, and
+#           ADR-0001 (typed, linted code).
+# Host:     Gitea 1.27.3 (reusable workflow verified in guides/onboarding.md); github.ref
+#           is the context name Gitea Actions accepts.
+# Pin:      exact release tag v2.1.1 for both the workflow and its script.
+
+name: Quality checks
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "pyproject.toml"
+      - ".gitea/workflows/quality.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "pyproject.toml"
+      - ".gitea/workflows/quality.yml"
+
+# A newer run of the same ref replaces the older check.
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Python quality checks
+    permissions:
+      contents: read
+    uses: TirSystem/github-action/.gitea/workflows/quality-checks.yml@v2.1.1
+    with:
+      languages: python
+      working-directory: src
+      tools-ref: v2.1.1
