@@ -16,3 +16,15 @@ class ForecastSource(Protocol):
         @throws ForecastUnavailableError When no usable forecast can be given.
         """
         ...
+
+
+class Notifier(Protocol):
+    """@brief A channel that tells the owner something."""
+
+    def send(self, message: str) -> None:
+        """@brief Deliver one message.
+
+        @param message The text to deliver.
+        @throws NotificationError When the message could not be delivered.
+        """
+        ...

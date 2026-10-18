@@ -23,7 +23,8 @@ The repository is laid out in layers under `src/rain_alert/`:
 | --- | --- |
 | `domain/` | The hourly forecast and the `will_rain` rule (the course's loop over condition ids) |
 | `application/` | The forecast and notifier ports and the rain-check use case |
-| `infrastructure/` | Settings, the OpenWeather client, the Twilio WhatsApp notifier and the scheduler (standard library only) |
+| `infrastructure/` | Settings, web access, the OpenWeather client, the Twilio WhatsApp and dry-run notifiers and the daily scheduler (standard library only) |
+| `main.py` | The entry point that wires the layers together (`python -m rain_alert`) |
 | `constants.py` | All constants (API URLs, 12 hours, the limit 700, setting names) |
 
 The course's `weather_params` (`lat`, `lon`, `appid`, `cnt`) become the request of the OpenWeather client, and its `requests` and `twilio` calls are replaced by the standard library, so there are no runtime dependencies.
@@ -76,7 +77,37 @@ cp config.env.example config.env
 
 ## ▶️ Run
 
-The program itself arrives in a later gateway of the plan (see the milestones in the appendix); this section is completed there with the commands to run it once, as a dry run, and in a Docker container.
+With the `.venv` active and `config.env` filled in, check the forecast once and print the message instead of sending it:
+
+```bash
+python -m rain_alert --once --dry-run
+```
+
+Send the WhatsApp message for real (needs the Twilio values and a phone that joined the Twilio WhatsApp sandbox), or run the daily loop in the foreground:
+
+```bash
+python -m rain_alert --once
+python -m rain_alert
+```
+
+Exit codes: 0 success, 1 the forecast or the message failed, 2 a setting is missing or invalid (the message names the key, never its value). On Windows, install `tzdata` (part of the `dev` extra) so the time zone is found.
+
+### In a Docker container
+
+Docker Desktop builds the image and keeps the container running; it checks the forecast every day at `ALERT_TIME`. `config.env` is passed to the container at run time and is never copied into the image.
+
+```bash
+docker compose up -d --build
+docker compose logs -f
+docker compose run --rm rain-alert python -m rain_alert --once --dry-run
+docker compose down
+```
+
+### WhatsApp through Twilio
+
+1. Open the Twilio Sandbox for WhatsApp in the Twilio console and join it from your phone (send the join code to the sandbox number).
+2. Put the account SID, auth token and sandbox number in `config.env`, and your own number in `PHONENUMBER`.
+3. The sandbox forgets your phone after 72 hours without a message; join again if the message does not arrive.
 
 ## 🧪 Tests
 
