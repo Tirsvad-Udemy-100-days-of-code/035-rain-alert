@@ -20,6 +20,8 @@ python -m rain_alert
 
 Programmet sender én besked, når et vejrforholds-id inden for de næste 12 timer er under 700 (tordenvejr, støvregn, regn, sne), og ellers intet.
 
+![Beskeden, som den ankommer i WhatsApp (alt andet end beskeden er sløret)](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/whatsapp-message.png)
+
 ## Afslutningskoder
 
 | Kode | Betydning |

@@ -22,6 +22,8 @@ python -m rain_alert
 
 Program menghantar satu mesej apabila mana-mana id keadaan cuaca dalam 12 jam akan datang kurang daripada 700 (ribut petir, renyai, hujan, salji), dan tiada apa-apa jika tidak.
 
+![Mesej seperti yang tiba dalam WhatsApp (segala-galanya kecuali mesej dikaburkan)](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/whatsapp-message.png)
+
 ## Kod keluar
 
 | Kod | Maksud |
