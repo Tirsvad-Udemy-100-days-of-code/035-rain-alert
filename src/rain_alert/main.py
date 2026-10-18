@@ -108,11 +108,11 @@ def main(
     web = transport or UrllibTransport()
     try:
         settings = load_settings(load_environment(environ, args.config))
-        notifier: Notifier = (
-            DryRunNotifier(stdout or sys.stdout)
-            if args.dry_run
-            else twilio_notifier_from_settings(settings, web)
-        )
+        notifier: Notifier
+        if args.dry_run:
+            notifier = DryRunNotifier(stdout or sys.stdout)
+        else:
+            notifier = twilio_notifier_from_settings(settings, web)
         job = _make_job(settings, web, notifier)
         if args.once:
             job()
