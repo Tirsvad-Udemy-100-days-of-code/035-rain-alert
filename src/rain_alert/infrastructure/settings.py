@@ -18,12 +18,13 @@ class SettingsError(Exception):
 class Settings:
     """@brief The values of one run.
 
-    @param api_key OpenWeather API key (secret).
+    @param api_key OpenWeather API key (secret) for the chosen forecast.
     @param phone_number Recipient number in international format (personal).
     @param latitude Latitude of the location, -90 to 90.
     @param longitude Longitude of the location, -180 to 180.
     @param alert_time Local time of the daily check.
     @param timezone IANA time zone name of the alert time.
+    @param forecast_api OpenWeather forecast to use: ``onecall4`` or ``forecast25``.
     @param twilio_account_sid Twilio account SID, when configured.
     @param twilio_auth_token Twilio auth token (secret), when configured.
     @param twilio_whatsapp_from Twilio WhatsApp sender number, when configured.
@@ -35,6 +36,7 @@ class Settings:
     longitude: float
     alert_time: time
     timezone: str
+    forecast_api: str = constants.DEFAULT_FORECAST_API
     twilio_account_sid: str | None = None
     twilio_auth_token: str | None = None
     twilio_whatsapp_from: str | None = None
@@ -147,6 +149,40 @@ def _optional(variables: Mapping[str, str], key: str) -> str | None:
     return variables.get(key, "").strip() or None
 
 
+def _forecast_api(raw: str) -> str:
+    """@brief Read the name of the forecast to use.
+
+    @param raw The text, possibly empty.
+    @return The name, by default ``onecall4``.
+    @throws SettingsError When the name is unknown.
+    """
+    name = raw.strip().lower() or constants.DEFAULT_FORECAST_API
+    if name not in (constants.FORECAST_API_ONECALL4, constants.FORECAST_API_FORECAST25):
+        raise SettingsError(
+            f"Setting {constants.ENV_FORECAST_API} must be "
+            f"{constants.FORECAST_API_ONECALL4} or {constants.FORECAST_API_FORECAST25}."
+        )
+    return name
+
+
+def _api_key(variables: Mapping[str, str], forecast_api: str) -> str:
+    """@brief Get the API key for the chosen forecast.
+
+    One Call 4.0 uses ``OPENWEATHER4_APIKEY`` when it is set and otherwise the
+    general ``OPENWEATHER_APIKEY``; the 2.5 forecast uses the general key.
+
+    @param variables The variables to read from.
+    @param forecast_api The chosen forecast.
+    @return The API key.
+    @throws SettingsError When the key is missing; names the key.
+    """
+    if forecast_api == constants.FORECAST_API_ONECALL4:
+        specific = _optional(variables, constants.ENV_API_KEY_ONECALL4)
+        if specific is not None:
+            return specific
+    return _required(variables, constants.ENV_API_KEY)
+
+
 def load_settings(variables: Mapping[str, str]) -> Settings:
     """@brief Build the settings of a run from variables.
 
@@ -156,14 +192,16 @@ def load_settings(variables: Mapping[str, str]) -> Settings:
         message names the key and never shows a value.
     """
     alert_time = variables.get(constants.ENV_ALERT_TIME, "").strip()
+    forecast_api = _forecast_api(variables.get(constants.ENV_FORECAST_API, ""))
     return Settings(
-        api_key=_required(variables, constants.ENV_API_KEY),
+        api_key=_api_key(variables, forecast_api),
         phone_number=_required(variables, constants.ENV_PHONE_NUMBER),
         latitude=_number(variables, constants.ENV_LATITUDE, -90.0, 90.0),
         longitude=_number(variables, constants.ENV_LONGITUDE, -180.0, 180.0),
         alert_time=_alert_time(alert_time or constants.DEFAULT_ALERT_TIME),
         timezone=_optional(variables, constants.ENV_TIMEZONE)
         or constants.DEFAULT_TIMEZONE,
+        forecast_api=forecast_api,
         twilio_account_sid=_optional(variables, constants.ENV_TWILIO_ACCOUNT_SID),
         twilio_auth_token=_optional(variables, constants.ENV_TWILIO_AUTH_TOKEN),
         twilio_whatsapp_from=_optional(variables, constants.ENV_TWILIO_WHATSAPP_FROM),

@@ -100,3 +100,42 @@ def test_variable_already_set_wins_over_the_file(tmp_path: Path) -> None:
 
 def test_missing_file_is_ignored(tmp_path: Path) -> None:
     assert load_environment({"A": "1"}, tmp_path / "absent.env") == {"A": "1"}
+
+
+def test_forecast_api_defaults_to_one_call_4() -> None:
+    assert load_settings(BASE).forecast_api == "onecall4"
+
+
+@pytest.mark.parametrize("value", ["forecast25", " FORECAST25 "])
+def test_forecast_api_accepts_the_free_forecast(value: str) -> None:
+    assert load_settings(BASE | {"FORECAST_API": value}).forecast_api == "forecast25"
+
+
+def test_unknown_forecast_api_is_named_without_its_value() -> None:
+    with pytest.raises(SettingsError, match="FORECAST_API") as caught:
+        load_settings(BASE | {"FORECAST_API": "v9-secret"})
+    assert "v9-secret" not in str(caught.value)
+
+
+def test_one_call_4_uses_its_own_key_when_set() -> None:
+    settings = load_settings(BASE | {"OPENWEATHER4_APIKEY": "key-four"})
+    assert settings.api_key == "key-four"
+
+
+def test_one_call_4_falls_back_to_the_general_key() -> None:
+    assert load_settings(BASE).api_key == SECRET_KEY
+
+
+def test_free_forecast_uses_the_general_key_even_when_the_4_key_is_set() -> None:
+    settings = load_settings(
+        BASE | {"OPENWEATHER4_APIKEY": "key-four", "FORECAST_API": "forecast25"}
+    )
+    assert settings.api_key == SECRET_KEY
+
+
+def test_missing_general_key_is_named_for_the_free_forecast() -> None:
+    variables = {k: v for k, v in BASE.items() if k != "OPENWEATHER_APIKEY"}
+    with pytest.raises(SettingsError, match="OPENWEATHER_APIKEY"):
+        load_settings(
+            variables | {"OPENWEATHER4_APIKEY": "k", "FORECAST_API": "forecast25"}
+        )

@@ -199,3 +199,34 @@ def test_unknown_time_zone_gives_exit_code_2() -> None:
         main([*NO_CONFIG], environ=environ, transport=FakeTransport(_forecast(500)))
         == 2
     )
+
+
+def test_default_forecast_is_one_call_4() -> None:
+    transport = FakeTransport(_forecast(800))
+    _run(transport, "--once", "--dry-run")
+    assert "/data/4.0/onecall/timeline/1h" in transport.gets[0]
+
+
+def test_forecast_api_setting_selects_the_free_forecast() -> None:
+    answer = json.dumps({"list": [{"dt": 1, "weather": [{"id": 500}]}]}).encode()
+    transport = FakeTransport(answer)
+    code, out = _run(
+        transport,
+        "--once",
+        "--dry-run",
+        environ=ENVIRON | {"FORECAST_API": "forecast25"},
+    )
+    assert code == 0
+    assert "/data/2.5/forecast" in transport.gets[0]
+    assert "cnt=4" in transport.gets[0]
+    assert "would send" in out
+
+
+def test_unknown_forecast_api_gives_exit_code_2(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    transport = FakeTransport(_forecast(800))
+    code, _ = _run(transport, "--once", environ=ENVIRON | {"FORECAST_API": "other"})
+    assert code == 2
+    assert "FORECAST_API" in caplog.text
+    assert transport.gets == []
