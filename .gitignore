@@ -1,0 +1,33 @@
+# Secrets and local environment (tokens, API keys and the phone number)
+.env
+.env.*
+!.env.example
+config.env
+!config.env.example
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Doxygen output
+/doxygen/
+/build/doxygen/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

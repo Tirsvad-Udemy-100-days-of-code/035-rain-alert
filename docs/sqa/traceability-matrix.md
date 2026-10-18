@@ -1,0 +1,61 @@
+# Traceability Matrix: Rain Alert
+
+## Metadata
+| Key | Value |
+| --- | --- |
+| ID | TM-001 |
+| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [ADR-0001] |
+
+## Version History
+| Date | Status | Author | Reviewer | Change | Commit |
+| --- | --- | --- | --- | --- | --- |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version with the planning baseline (RC-001 to RC-009) | pending |
+
+---
+
+## Purpose
+
+Tracks backward/forward links between artifact instances so that the Business Case's cross-artifact traceability objective (O9) is measurable. A row is added or updated whenever an artifact instance is created or reviewed.
+
+## Traceability Table
+
+| Artifact Instance | Type | Language | Domain | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
+| --- | --- | --- | --- | --- | --- | --- |
+| [BC-001] | BC | en | it | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001] | [RC-001] |
+| [SA-001] | SA | en | it | [BC-001] | [PP-001], [GOV-001] | [RC-002] |
+| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004] | - (no checklist for the Project Plan) |
+| [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-003] |
+| [GOV-001] | GOV | en | it | [BC-001], [SA-001] | [TM-001] | [RC-004] |
+| [ADR-0001] | ADR | - | - | [BC-001] | source code under `src/` | [RC-005] |
+| [MIL-001] | MIL | en | it | [BC-001], [PP-001] | source code, configuration and README | [RC-006] |
+| [MIL-002] | MIL | en | it | [BC-001], [PP-001], [MIL-001] | source code and tests of the domain, application and settings | [RC-007] |
+| [MIL-003] | MIL | en | it | [BC-001], [PP-001], [MIL-002] | source code, tests, Dockerfile and Compose file of the alert | [RC-008] |
+| [MIL-004] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | README, screenshots and wiki | [RC-009] |
+
+## Coverage Notes
+
+- No instance exists yet of KPI, BMC, BPMN, UCD, US, UC, DM, SSD, OC, SD, DCD or ERD: the requirements come from the course assignment and S01's changes (see [BC-001]) and the design reference is [ADR-0001].
+- In Upstream `-` means foundational; in Downstream `-` means nothing is built on it yet; in Last Reviewed `-` means no `RC-*` exists.
+- Source code is reviewed against `QC-PY-001` before each pull request; those records are added to this matrix as they are written.
+
+---
+
+[BC-001]: ../business-case.md
+[SA-001]: ../stakeholder-analysis.md
+[PP-001]: ../project-plan.md
+[DICT-001]: ../dictionary.md
+[GOV-001]: ./governance.md
+[ADR-0001]: ../adr/adr-0001-architecture-and-dependencies.md
+[MIL-001]: ../milestones/mil-001-project-foundation.md
+[MIL-002]: ../milestones/mil-002-rain-check-core.md
+[MIL-003]: ../milestones/mil-003-whatsapp-alert-and-container.md
+[MIL-004]: ../milestones/mil-004-documentation-and-wiki.md
+[RC-001]: ./reviews/rc-001-business-case.md
+[RC-002]: ./reviews/rc-002-stakeholder-analysis.md
+[RC-003]: ./reviews/rc-003-dictionary.md
+[RC-004]: ./reviews/rc-004-governance.md
+[RC-005]: ./reviews/rc-005-adr-0001.md
+[RC-006]: ./reviews/rc-006-mil-001.md
+[RC-007]: ./reviews/rc-007-mil-002.md
+[RC-008]: ./reviews/rc-008-mil-003.md
+[RC-009]: ./reviews/rc-009-mil-004.md
