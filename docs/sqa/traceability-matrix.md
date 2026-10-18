@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | [6434347] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | [12a9d13] |
 
 ---
 
@@ -95,3 +95,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-023]: ./reviews/rc-023-dictionary-amendment-2.md
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
 [RC-024]: ./reviews/rc-024-py-mil-006.md
+[12a9d13]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/12a9d134f6a7e8700a1c21b1cea85ec7f2c59e84
