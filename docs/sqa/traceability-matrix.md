@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | [2c661f6] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-015 (MIL-005), RC-016 (ADR-0001 amendment) and RC-017 (dictionary amendment) | [5da8060] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-015 (MIL-005), RC-016 (ADR-0001 amendment) and RC-017 (dictionary amendment) | [5da8060] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-018 (Python source of MIL-005) | pending |
 
 ---
 
@@ -38,6 +38,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | Python source of MIL-003 (`application` use case, notifiers, scheduler, `main`) | PY | - | - | [ADR-0001], [MIL-003] | - | [RC-013] |
 | `compose.yaml` and `Dockerfile` | YML | - | - | [ADR-0001], [MIL-003] | - | [RC-014] |
 | [MIL-005] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | source code and tests of the forecast fallback | [RC-015] |
+| Python source of MIL-005 (`OpenWeatherForecastClient`, `FORECAST_API`) | PY | - | - | [ADR-0001], [MIL-005] | - | [RC-018] |
 
 ## Coverage Notes
 
@@ -80,3 +81,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-016]: ./reviews/rc-016-adr-0001-amendment.md
 [RC-017]: ./reviews/rc-017-dictionary-amendment.md
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[RC-018]: ./reviews/rc-018-py-mil-005.md

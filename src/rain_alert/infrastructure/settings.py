@@ -24,6 +24,7 @@ class Settings:
     @param longitude Longitude of the location, -180 to 180.
     @param alert_time Local time of the daily check.
     @param timezone IANA time zone name of the alert time.
+    @param forecast_api OpenWeather forecast to use: ``onecall4`` or ``forecast25``.
     @param twilio_account_sid Twilio account SID, when configured.
     @param twilio_auth_token Twilio auth token (secret), when configured.
     @param twilio_whatsapp_from Twilio WhatsApp sender number, when configured.
@@ -35,6 +36,7 @@ class Settings:
     longitude: float
     alert_time: time
     timezone: str
+    forecast_api: str = constants.DEFAULT_FORECAST_API
     twilio_account_sid: str | None = None
     twilio_auth_token: str | None = None
     twilio_whatsapp_from: str | None = None
@@ -147,6 +149,22 @@ def _optional(variables: Mapping[str, str], key: str) -> str | None:
     return variables.get(key, "").strip() or None
 
 
+def _forecast_api(raw: str) -> str:
+    """@brief Read the name of the forecast to use.
+
+    @param raw The text, possibly empty.
+    @return The name, by default ``onecall4``.
+    @throws SettingsError When the name is unknown.
+    """
+    name = raw.strip().lower() or constants.DEFAULT_FORECAST_API
+    if name not in (constants.FORECAST_API_ONECALL4, constants.FORECAST_API_FORECAST25):
+        raise SettingsError(
+            f"Setting {constants.ENV_FORECAST_API} must be "
+            f"{constants.FORECAST_API_ONECALL4} or {constants.FORECAST_API_FORECAST25}."
+        )
+    return name
+
+
 def load_settings(variables: Mapping[str, str]) -> Settings:
     """@brief Build the settings of a run from variables.
 
@@ -164,6 +182,7 @@ def load_settings(variables: Mapping[str, str]) -> Settings:
         alert_time=_alert_time(alert_time or constants.DEFAULT_ALERT_TIME),
         timezone=_optional(variables, constants.ENV_TIMEZONE)
         or constants.DEFAULT_TIMEZONE,
+        forecast_api=_forecast_api(variables.get(constants.ENV_FORECAST_API, "")),
         twilio_account_sid=_optional(variables, constants.ENV_TWILIO_ACCOUNT_SID),
         twilio_auth_token=_optional(variables, constants.ENV_TWILIO_AUTH_TOKEN),
         twilio_whatsapp_from=_optional(variables, constants.ENV_TWILIO_WHATSAPP_FROM),

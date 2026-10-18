@@ -100,3 +100,18 @@ def test_variable_already_set_wins_over_the_file(tmp_path: Path) -> None:
 
 def test_missing_file_is_ignored(tmp_path: Path) -> None:
     assert load_environment({"A": "1"}, tmp_path / "absent.env") == {"A": "1"}
+
+
+def test_forecast_api_defaults_to_one_call_4() -> None:
+    assert load_settings(BASE).forecast_api == "onecall4"
+
+
+@pytest.mark.parametrize("value", ["forecast25", " FORECAST25 "])
+def test_forecast_api_accepts_the_free_forecast(value: str) -> None:
+    assert load_settings(BASE | {"FORECAST_API": value}).forecast_api == "forecast25"
+
+
+def test_unknown_forecast_api_is_named_without_its_value() -> None:
+    with pytest.raises(SettingsError, match="FORECAST_API") as caught:
+        load_settings(BASE | {"FORECAST_API": "v9-secret"})
+    assert "v9-secret" not in str(caught.value)

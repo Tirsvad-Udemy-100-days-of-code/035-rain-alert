@@ -12,6 +12,12 @@ from typing import Final
 ## @brief Endpoint of the hourly timeline of the One Call 4.0 API.
 FORECAST_URL: Final[str] = "https://api.openweathermap.org/data/4.0/onecall/timeline/1h"
 
+## @brief Endpoint of the free 2.5 forecast (one entry per three hours).
+FORECAST_25_URL: Final[str] = "https://api.openweathermap.org/data/2.5/forecast"
+
+## @brief Hours covered by one entry of the 2.5 forecast.
+FORECAST_25_PERIOD_HOURS: Final[int] = 3
+
 ## @brief Number of hourly forecasts checked (the next 12 hours).
 FORECAST_HOURS: Final[int] = 12
 
@@ -75,6 +81,18 @@ ENV_TWILIO_AUTH_TOKEN: Final[str] = "TWILIO_AUTH_TOKEN"
 
 ## @brief Environment variable: Twilio WhatsApp sender number.
 ENV_TWILIO_WHATSAPP_FROM: Final[str] = "TWILIO_WHATSAPP_FROM"
+
+## @brief Environment variable: which OpenWeather forecast to use.
+ENV_FORECAST_API: Final[str] = "FORECAST_API"
+
+## @brief Value of FORECAST_API for the One Call 4.0 hourly forecast.
+FORECAST_API_ONECALL4: Final[str] = "onecall4"
+
+## @brief Value of FORECAST_API for the free 2.5 forecast.
+FORECAST_API_FORECAST25: Final[str] = "forecast25"
+
+## @brief Forecast used when none is configured.
+DEFAULT_FORECAST_API: Final[str] = FORECAST_API_ONECALL4
 
 ## @brief Environment variable: local time of the daily check, HH:MM.
 ENV_ALERT_TIME: Final[str] = "ALERT_TIME"

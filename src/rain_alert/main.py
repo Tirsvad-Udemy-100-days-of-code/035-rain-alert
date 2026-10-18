@@ -11,14 +11,17 @@ from typing import TextIO
 
 from rain_alert import constants
 from rain_alert.application.errors import ForecastUnavailableError, NotificationError
-from rain_alert.application.ports import Notifier
+from rain_alert.application.ports import ForecastSource, Notifier
 from rain_alert.application.rain_alert import run_rain_alert
 from rain_alert.infrastructure.http import Transport, UrllibTransport
 from rain_alert.infrastructure.notifiers import (
     DryRunNotifier,
     twilio_notifier_from_settings,
 )
-from rain_alert.infrastructure.openweather_client import OpenWeatherClient
+from rain_alert.infrastructure.openweather_client import (
+    OpenWeatherClient,
+    OpenWeatherForecastClient,
+)
 from rain_alert.infrastructure.scheduler import DailyScheduler, load_zone
 from rain_alert.infrastructure.settings import (
     Settings,
@@ -55,26 +58,36 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _make_job(
-    settings: Settings, transport: Transport, notifier: Notifier
-) -> Callable[[], None]:
-    """@brief Wire the client and the notifier into one job.
+def _make_source(settings: Settings, transport: Transport) -> ForecastSource:
+    """@brief Choose the forecast source named by the settings.
 
     @param settings The settings of the run.
-    @param transport Fetches URLs and posts forms.
+    @param transport Fetches URLs.
+    @return The One Call 4.0 client or the 2.5 forecast client.
+    """
+    if settings.forecast_api == constants.FORECAST_API_FORECAST25:
+        return OpenWeatherForecastClient(
+            transport, settings.api_key, settings.latitude, settings.longitude
+        )
+    return OpenWeatherClient(
+        transport, settings.api_key, settings.latitude, settings.longitude
+    )
+
+
+def _make_job(source: ForecastSource, notifier: Notifier) -> Callable[[], None]:
+    """@brief Wire the forecast source and the notifier into one job.
+
+    @param source Where the hourly forecast comes from.
     @param notifier How the owner is told.
     @return A function that runs the rain alert once and logs the outcome.
     """
-    client = OpenWeatherClient(
-        transport, settings.api_key, settings.latitude, settings.longitude
-    )
 
     def job() -> None:
         logger.info(
             "Checking the forecast for the next %d hours", constants.FORECAST_HOURS
         )
-        if run_rain_alert(client, notifier):
-            logger.info("Rain is expected: the message was sent")
+        if run_rain_alert(source, notifier):
+            logger.info("Rain is expected: the alert was delivered")
         else:
             logger.info("No rain is expected: nothing was sent")
 
@@ -113,7 +126,7 @@ def main(
             notifier = DryRunNotifier(stdout or sys.stdout)
         else:
             notifier = twilio_notifier_from_settings(settings, web)
-        job = _make_job(settings, web, notifier)
+        job = _make_job(_make_source(settings, web), notifier)
         if args.once:
             job()
             return constants.EXIT_OK

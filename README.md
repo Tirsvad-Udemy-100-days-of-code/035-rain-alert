@@ -15,7 +15,7 @@ A small program that checks the weather forecast every morning and sends you a W
 
 ## 🧭 Overview
 
-Rain Alert asks the OpenWeather One Call 4.0 API for the hourly forecast of one place, looks at the next 12 hours, and decides that rain is expected when any weather condition id is below 700 (the rule of the course). If so, it sends one WhatsApp message through the Twilio WhatsApp sandbox; otherwise it stays silent. It runs once a day at a time you choose, in a Docker container on Docker Desktop, and all secrets stay in a git-ignored `config.env`.
+Rain Alert asks OpenWeather for the forecast of one place (One Call 4.0 hourly, or the free 2.5 forecast, as you choose), looks at the next 12 hours, and decides that rain is expected when any weather condition id is below 700 (the rule of the course). If so, it sends one WhatsApp message through the Twilio WhatsApp sandbox; otherwise it stays silent. It runs once a day at a time you choose, in a Docker container on Docker Desktop, and all secrets stay in a git-ignored `config.env`.
 
 The repository is laid out in layers under `src/rain_alert/`:
 
@@ -69,6 +69,7 @@ cp config.env.example config.env
 | Setting | Meaning |
 | --- | --- |
 | `OPENWEATHER_APIKEY` | Your OpenWeather API key |
+| `FORECAST_API` | `onecall4` (One Call 4.0, needs the One Call by Call subscription; default) or `forecast25` (the free 2.5 forecast, one entry per three hours) |
 | `LATITUDE`, `LONGITUDE` | The place to check (default 2.927761, 101.897999) |
 | `PHONENUMBER` | Your WhatsApp number, international format |
 | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | From the Twilio console |
