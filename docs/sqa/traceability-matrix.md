@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version with the planning baseline (RC-001 to RC-009) | [728ff3e] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version with the planning baseline (RC-001 to RC-009) | [728ff3e] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-010 (Python source of MIL-001) and RC-011 (quality workflow) | pending |
 
 ---
 
@@ -31,6 +32,8 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | [MIL-002] | MIL | en | it | [BC-001], [PP-001], [MIL-001] | source code and tests of the domain, application and settings | [RC-007] |
 | [MIL-003] | MIL | en | it | [BC-001], [PP-001], [MIL-002] | source code, tests, Dockerfile and Compose file of the alert | [RC-008] |
 | [MIL-004] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | README, screenshots and wiki | [RC-009] |
+| Python source of MIL-001 (`src/rain_alert`, `tests`) | PY | - | - | [ADR-0001], [MIL-001] | - | [RC-010] |
+| CI workflow `.gitea/workflows/quality.yml` | WF | - | - | [MIL-001] | - | [RC-011] |
 
 ## Coverage Notes
 
@@ -60,3 +63,5 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-008]: ./reviews/rc-008-mil-003.md
 [RC-009]: ./reviews/rc-009-mil-004.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
+[RC-010]: ./reviews/rc-010-py-mil-001.md
+[RC-011]: ./reviews/rc-011-ci-workflow-quality.md
