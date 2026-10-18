@@ -123,6 +123,14 @@ The alert as it arrives in WhatsApp (everything except the message is blurred):
 
 Exit codes: 0 success, 1 the forecast or the message failed, 2 a setting is missing or invalid (the message names the key, never its value). On Windows, install `tzdata` (part of the `dev` extra) so the time zone is found.
 
+### If the message is typed but not sent
+
+pywhatkit opens `web.whatsapp.com/send?phone=...&text=...`, clicks the centre of the **primary** screen to focus the page, waits, and presses Enter. So:
+
+- Keep the browser window on the primary monitor while it runs. On a second monitor the click lands elsewhere and Enter never reaches WhatsApp: the text stays in the message box.
+- Close other WhatsApp Web tabs first, so the message is not typed into whichever chat that tab has open.
+- Do not touch the keyboard or mouse during the wait (`--once` takes about 20 seconds).
+
 ### Every morning on Windows
 
 pywhatkit needs your logged-in browser, so schedule the one-off check with Windows Task Scheduler instead of a container. In PowerShell, from the repository folder (the task runs only while you are logged in, because it opens a browser):

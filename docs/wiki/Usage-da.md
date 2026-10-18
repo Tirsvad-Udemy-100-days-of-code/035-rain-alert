@@ -34,6 +34,14 @@ Programmet sender én besked, når et vejrforholds-id inden for de næste 12 tim
 
 `FORECAST_API=onecall4` bruger One Call 4.0 time for time, som kræver det separate One Call by Call-abonnement. `FORECAST_API=forecast25` bruger den gratis 2.5-udsigt med ét punkt hver tredje time, som kurset gør.
 
+## Hvis beskeden er skrevet, men ikke sendt
+
+pywhatkit åbner `web.whatsapp.com/send?phone=...&text=...`, klikker midt på den **primære** skærm, venter og trykker Enter.
+
+- Hold browservinduet på den primære skærm, mens det kører; på en anden skærm rammer klikket forkert, og teksten bliver stående i beskedfeltet.
+- Luk andre WhatsApp Web-faner først, så beskeden ikke skrives i den samtale, fanen har åben.
+- Rør ikke tastatur eller mus under ventetiden (ca. 20 sekunder).
+
 ## Hver morgen på Windows
 
 pywhatkit skal bruge din indloggede browser, så planlæg `--once` med Windows Opgavestyring (opgaven kører, mens du er logget ind). Kommandoerne opretter den daglige opgave kl. 07:00, kører den én gang nu og fjerner den igen:
