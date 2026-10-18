@@ -19,7 +19,7 @@ document of a type. `Primary File` may contain a glob (e.g.
 | DICT | Domain Dictionary | docs/dictionary.md | 002 |
 | TM | Traceability Matrix | docs/sqa/traceability-matrix.md | 002 |
 | GOV | Governance / ARB Workflow | docs/sqa/governance.md | 002 |
-| RC | SQA Review Record | docs/sqa/reviews/rc-*.md | 012 |
+| RC | SQA Review Record | docs/sqa/reviews/rc-*.md | 013 |
 
 ## Languages
 
