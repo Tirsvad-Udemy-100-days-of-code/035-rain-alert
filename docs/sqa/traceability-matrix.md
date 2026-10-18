@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-015 (MIL-005), RC-016 (ADR-0001 amendment) and RC-017 (dictionary amendment) | [5da8060] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-018 (Python source of MIL-005) | [a79371a] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-018 (Python source of MIL-005) | [a79371a] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | pending |
 
 ---
 
@@ -39,6 +39,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | `compose.yaml` and `Dockerfile` | YML | - | - | [ADR-0001], [MIL-003] | - | [RC-014] |
 | [MIL-005] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | source code and tests of the forecast fallback | [RC-015] |
 | Python source of MIL-005 (`OpenWeatherForecastClient`, `FORECAST_API`) | PY | - | - | [ADR-0001], [MIL-005] | - | [RC-018] |
+| CI workflow `.gitea/workflows/publish-wiki.yml` | WF | - | - | [MIL-004] | - | [RC-019] |
 
 ## Coverage Notes
 
@@ -83,3 +84,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
 [RC-018]: ./reviews/rc-018-py-mil-005.md
 [a79371a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/a79371a39d620ce761ca009ad1680d07ed2c61e0
+[RC-019]: ./reviews/rc-019-wiki-publish-workflow.md

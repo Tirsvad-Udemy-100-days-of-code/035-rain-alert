@@ -1,0 +1,40 @@
+---
+# Publish the project's wiki pages to the git host's wiki.
+#
+# Purpose:  copy the Markdown pages of docs/wiki/ (English, Danish, Bahasa Melayu)
+#           to the wiki of this repository with the reusable workflow of
+#           TirSystem/github-action (guides/onboarding.md there).
+# Triggers: a push to main that changes docs/wiki/, or a manual run.
+# Secrets:  TOKEN_FOR_GITEA_WIKI, an organization secret: a Gitea token with
+#           scope write:repository (guides/credentials.md of github-action).
+# Changes:  the wiki of this repository. prune "true" deletes wiki pages that are
+#           not in docs/wiki/, so the wiki always equals the folder.
+# Decision: framework/process/wiki.md; Business Case BC-001, objective O8.
+# Pin:      the major tag v1 of an action of the same organization (release
+#           policy: github-action CHANGELOG.md); a runner must be registered.
+
+name: Publish wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/wiki/**"
+  workflow_dispatch:
+
+# Two merges in a row queue instead of racing.
+concurrency:
+  group: publish-wiki
+  cancel-in-progress: false
+
+jobs:
+  wiki:
+    name: Publish wiki pages
+    permissions:
+      contents: read
+    uses: TirSystem/github-action/.gitea/workflows/publish-wiki-pages.yml@v1
+    with:
+      wiki_dir: docs/wiki
+      prune: "true"
+    secrets:
+      TOKEN_FOR_GITEA_WIKI: ${{ secrets.TOKEN_FOR_GITEA_WIKI }}

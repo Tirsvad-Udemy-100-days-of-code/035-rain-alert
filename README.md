@@ -17,6 +17,8 @@ A small program that checks the weather forecast every morning and sends you a W
 
 Rain Alert asks OpenWeather for the forecast of one place (One Call 4.0 hourly, or the free 2.5 forecast, as you choose), looks at the next 12 hours, and decides that rain is expected when any weather condition id is below 700 (the rule of the course). If so, it sends one WhatsApp message through the Twilio WhatsApp sandbox; otherwise it stays silent. It runs once a day at a time you choose, in a Docker container on Docker Desktop, and all secrets stay in a git-ignored `config.env`.
 
+![A dry run that expects rain][screenshot-rain]
+
 The repository is laid out in layers under `src/rain_alert/`:
 
 | Folder | What it holds |
@@ -27,7 +29,18 @@ The repository is laid out in layers under `src/rain_alert/`:
 | `main.py` | The entry point that wires the layers together (`python -m rain_alert`) |
 | `constants.py` | All constants (API URLs, 12 hours, the limit 700, setting names) |
 
-The course's `weather_params` (`lat`, `lon`, `appid`, `cnt`) become the request of the OpenWeather client, and its `requests` and `twilio` calls are replaced by the standard library, so there are no runtime dependencies.
+Where the course script went:
+
+| Course script | Rain Alert |
+| --- | --- |
+| `weather_params` (`lat`, `lon`, `appid`, `cnt`) | `weather_params` of the OpenWeather clients |
+| `requests.get(...)` | `UrllibTransport` (standard library) |
+| loop over `weather[0]["id"] < 700` | `will_rain` in `domain/rain.py` |
+| `client.messages.create(...)` of `twilio` | `TwilioWhatsAppNotifier` (Twilio REST API with `urllib`) |
+| a schedule on PythonAnywhere or GitHub Actions | `DailyScheduler` in the Docker container |
+| keys in `os.environ.get(...)` | `Settings` read from `config.env` and the environment |
+
+There are no runtime dependencies. The wiki ([English][wiki], [Dansk][wiki-da], [Bahasa Melayu][wiki-ms]) explains the design in more detail.
 
 Tests are in `tests/`, project documents in `docs/`. The code has Doxygen comments and a `Doxyfile`.
 
@@ -92,6 +105,10 @@ python -m rain_alert --once
 python -m rain_alert
 ```
 
+| Rain expected | No rain expected |
+| --- | --- |
+| ![Rain expected][screenshot-rain] | ![No rain expected][screenshot-dry] |
+
 Exit codes: 0 success, 1 the forecast or the message failed, 2 a setting is missing or invalid (the message names the key, never its value). On Windows, install `tzdata` (part of the `dev` extra) so the time zone is found.
 
 ### In a Docker container
@@ -104,6 +121,8 @@ docker compose logs -f
 docker compose run --rm rain-alert python -m rain_alert --once --dry-run
 docker compose down
 ```
+
+![The container on Docker Desktop][screenshot-docker]
 
 ### WhatsApp through Twilio
 
@@ -153,6 +172,12 @@ The documents a newcomer needs, in reading order.
 [repository]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert
 [documentation]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki
 [issues]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/issues
+[screenshot-rain]: ./docs/images/dry-run-rain.png
+[screenshot-dry]: ./docs/images/dry-run-no-rain.png
+[screenshot-docker]: ./docs/images/docker-container.png
+[wiki]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki
+[wiki-da]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki/Home-da
+[wiki-ms]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki/Home-ms
 [agents]: ./AGENTS.md
 [BC-001]: ./docs/business-case.md
 [SA-001]: ./docs/stakeholder-analysis.md
