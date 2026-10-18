@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [6434347] |
 
 ---
 
@@ -64,3 +64,4 @@ Go — every criterion passes; condition 1 was closed when S01 accepted the plan
 
 [BC-001]: ../../business-case.md
 [QC-BC-001]: ../../../framework/qc/artifacts/qc-business-case.md
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

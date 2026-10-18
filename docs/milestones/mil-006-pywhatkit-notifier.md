@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [6434347] |
 
 ---
 
@@ -73,3 +73,4 @@ A pull request with the pywhatkit notifier, the setting `NOTIFIER`, the optional
 ---
 
 [BC-001]: ../business-case.md
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

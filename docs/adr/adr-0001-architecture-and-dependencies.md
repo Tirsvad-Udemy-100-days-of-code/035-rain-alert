@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the forecast endpoint is selectable (free 2.5 forecast as fallback), reason: HTTP 401 on One Call 4.0 | [5da8060] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the WhatsApp notifier is selectable (pywhatkit default, Twilio optional), reason: S01 uses pywhatkit on the host | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: the WhatsApp notifier is selectable (pywhatkit default, Twilio optional), reason: S01 uses pywhatkit on the host | [6434347] |
 
 Allowed Status values: `Proposed`, `Accepted`, `Rejected`, `Deprecated`, `Superseded by ADR-NNNN`.
 
@@ -92,3 +92,4 @@ Quality-attribute impacts: portability improves (standard library only, containe
 [MIL-006]: ../milestones/mil-006-pywhatkit-notifier.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

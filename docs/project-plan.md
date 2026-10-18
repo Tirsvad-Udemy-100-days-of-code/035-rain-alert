@@ -12,7 +12,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added gateway MIL-005 (forecast API fallback) before MIL-004 after the live run showed HTTP 401 on One Call 4.0 | [5da8060] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added gateway MIL-006 (pywhatkit notifier) before MIL-004 content is brought up to date | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added gateway MIL-006 (pywhatkit notifier) before MIL-004 content is brought up to date | [6434347] |
 
 ---
 
@@ -113,3 +113,4 @@ A No-Go on a gateway stops the chain: later windows move by the days needed to f
 [MIL-006]: ./milestones/mil-006-pywhatkit-notifier.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370

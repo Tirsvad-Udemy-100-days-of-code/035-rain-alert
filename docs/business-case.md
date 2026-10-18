@@ -12,7 +12,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: pywhatkit is the default WhatsApp notifier on S01's machine, Twilio is optional (objectives O3 and O5, scope, assumptions, risks) | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: pywhatkit is the default WhatsApp notifier on S01's machine, Twilio is optional (objectives O3 and O5, scope, assumptions, risks) | [6434347] |
 
 ---
 
@@ -155,3 +155,4 @@ Proceed — the scope is small, the risks have mitigations and every objective i
 
 [SA-001]: ./stakeholder-analysis.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
+[6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
