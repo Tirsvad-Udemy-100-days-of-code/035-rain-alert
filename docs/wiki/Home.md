@@ -2,7 +2,7 @@
 
 # Rain Alert
 
-A program that checks the weather forecast every morning and sends you a WhatsApp message when it will rain in the next 12 hours. It is the Day 35 project of Udemy's "100 Days of Code: The Complete Python Pro Bootcamp", and it runs in a Docker container on Docker Desktop.
+A program that checks the weather forecast every morning and sends you a WhatsApp message when it will rain in the next 12 hours. It is the Day 35 project of Udemy's "100 Days of Code: The Complete Python Pro Bootcamp", and it runs on your own machine with pywhatkit (WhatsApp Web), or in a Docker container with Twilio.
 
 ![A dry run that expects rain](https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/raw/branch/main/docs/images/dry-run-rain.png)
 

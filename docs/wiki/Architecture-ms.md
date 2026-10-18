@@ -21,10 +21,11 @@ Kod dibahagikan kepada lapisan; kebergantungan menghala ke dalam (infrastruktur 
 | `weather_params` (`lat`, `lon`, `appid`, `cnt`) | `OpenWeatherClient.weather_params`, `OpenWeatherForecastClient.weather_params` |
 | `requests.get(...)` | `UrllibTransport` (pustaka standard) |
 | gelung atas `weather[0]["id"] < 700` | `will_rain` dalam `domain/rain.py` |
-| `twilio` `client.messages.create(...)` | `TwilioWhatsAppNotifier` (API REST Twilio dengan `urllib`) |
-| jadual di PythonAnywhere atau GitHub Actions | `DailyScheduler` dalam bekas Docker |
+| `pywhatkit.sendwhatmsg(...)` | `PywhatkitNotifier` (lalai; `sendwhatmsg_instantly`) |
+| `twilio` `client.messages.create(...)` | `TwilioWhatsAppNotifier` (pilihan; API REST Twilio dengan `urllib`) |
+| jadual di PythonAnywhere atau GitHub Actions | Windows Task Scheduler, atau `DailyScheduler` |
 | kunci dalam `os.environ.get(...)` | `Settings` dibaca daripada `config.env` dan persekitaran |
 
 ## Aliran
 
-`main()` membaca tetapan, membina sumber ramalan yang dinamakan oleh `FORECAST_API` dan pemberitahu, dan `run_rain_alert` meminta sumber untuk 12 jam akan datang. `will_rain` memutuskan; jika hujan dijangka, pemberitahu menghantar tepat satu mesej.
+`main()` membaca tetapan, membina sumber ramalan yang dinamakan oleh `FORECAST_API` dan pemberitahu yang dinamakan oleh `NOTIFIER`, dan `run_rain_alert` meminta sumber untuk 12 jam akan datang. `will_rain` memutuskan; jika hujan dijangka, pemberitahu menghantar tepat satu mesej.

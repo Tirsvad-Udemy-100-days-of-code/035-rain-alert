@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-019 (wiki publish workflow) | [80a3886] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | [6434347] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | [6434347] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | pending |
 
 ---
 
@@ -41,6 +41,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | Python source of MIL-005 (`OpenWeatherForecastClient`, `FORECAST_API`) | PY | - | - | [ADR-0001], [MIL-005] | - | [RC-018] |
 | CI workflow `.gitea/workflows/publish-wiki.yml` | WF | - | - | [MIL-004] | - | [RC-019] |
 | [MIL-006] | MIL | en | it | [BC-001], [PP-001], [MIL-005] | source code, tests and documentation of the pywhatkit notifier | [RC-020] |
+| Python source of MIL-006 (`PywhatkitNotifier`, `NOTIFIER`) | PY | - | - | [ADR-0001], [MIL-006] | - | [RC-024] |
 
 ## Coverage Notes
 
@@ -93,3 +94,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-022]: ./reviews/rc-022-adr-0001-amendment-2.md
 [RC-023]: ./reviews/rc-023-dictionary-amendment-2.md
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
+[RC-024]: ./reviews/rc-024-py-mil-006.md

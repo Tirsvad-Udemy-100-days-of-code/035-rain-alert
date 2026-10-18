@@ -3,7 +3,7 @@
 import io
 import json
 import logging
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from datetime import datetime, timedelta, tzinfo
 from pathlib import Path
 
@@ -22,6 +22,7 @@ SECRETS = (API_KEY, PHONE, SID, TOKEN)
 NO_CONFIG = ("--config", "no-such-config.env")
 
 ENVIRON = {
+    "NOTIFIER": "twilio",
     "OPENWEATHER_APIKEY": API_KEY,
     "PHONENUMBER": PHONE,
     "LATITUDE": "2.927761",
@@ -30,6 +31,20 @@ ENVIRON = {
     "TWILIO_AUTH_TOKEN": TOKEN,
     "TWILIO_WHATSAPP_FROM": "+14155238886",
 }
+
+
+class FakeWhatsAppWeb:
+    """Stands in for pywhatkit: records the messages instead of opening a browser."""
+
+    def __init__(self) -> None:
+        self.sent: list[tuple[str, str]] = []
+
+    def __call__(self, phone_number: str, message: str) -> None:
+        self.sent.append((phone_number, message))
+
+
+NO_NOTIFIER = {key: value for key, value in ENVIRON.items() if key != "NOTIFIER"}
+UMBRELLA = "It's going to rain today. Remember to bring an umbrella."
 
 
 def _forecast(condition_id: int) -> bytes:
@@ -65,10 +80,15 @@ def _run(
     transport: FakeTransport,
     *argv: str,
     environ: Mapping[str, str] = ENVIRON,
+    whatsapp_web: Callable[[str, str], None] | None = None,
 ) -> tuple[int, str]:
     stdout = io.StringIO()
     code = main(
-        [*argv, *NO_CONFIG], environ=environ, transport=transport, stdout=stdout
+        [*argv, *NO_CONFIG],
+        environ=environ,
+        transport=transport,
+        stdout=stdout,
+        whatsapp_web_send=whatsapp_web or FakeWhatsAppWeb(),
     )
     return code, stdout.getvalue()
 
@@ -230,3 +250,69 @@ def test_unknown_forecast_api_gives_exit_code_2(
     assert code == 2
     assert "FORECAST_API" in caplog.text
     assert transport.gets == []
+
+
+def test_pywhatkit_is_the_default_notifier() -> None:
+    environ = {k: v for k, v in NO_NOTIFIER.items() if not k.startswith("TWILIO")}
+    transport = FakeTransport(_forecast(500))
+    whatsapp = FakeWhatsAppWeb()
+    code, _ = _run(transport, "--once", environ=environ, whatsapp_web=whatsapp)
+    assert code == 0
+    assert whatsapp.sent == [(PHONE, UMBRELLA)]
+    assert transport.posts == []
+
+
+def test_pywhatkit_sends_nothing_when_no_rain_is_expected() -> None:
+    whatsapp = FakeWhatsAppWeb()
+    _run(
+        FakeTransport(_forecast(800)),
+        "--once",
+        environ=NO_NOTIFIER,
+        whatsapp_web=whatsapp,
+    )
+    assert whatsapp.sent == []
+
+
+def test_twilio_notifier_is_chosen_by_the_setting() -> None:
+    transport = FakeTransport(_forecast(500))
+    whatsapp = FakeWhatsAppWeb()
+    _run(transport, "--once", whatsapp_web=whatsapp)
+    assert len(transport.posts) == 1
+    assert whatsapp.sent == []
+
+
+def test_dry_run_never_uses_whatsapp_web() -> None:
+    whatsapp = FakeWhatsAppWeb()
+    code, out = _run(
+        FakeTransport(_forecast(500)),
+        "--once",
+        "--dry-run",
+        environ=NO_NOTIFIER,
+        whatsapp_web=whatsapp,
+    )
+    assert code == 0
+    assert "would send" in out
+    assert whatsapp.sent == []
+
+
+def test_unknown_notifier_gives_exit_code_2(caplog: pytest.LogCaptureFixture) -> None:
+    environ = ENVIRON | {"NOTIFIER": "sms"}
+    code, _ = _run(FakeTransport(_forecast(500)), "--once", environ=environ)
+    assert code == 2
+    assert "NOTIFIER" in caplog.text
+
+
+def test_failed_whatsapp_web_send_gives_exit_code_1(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    def broken(phone_number: str, message: str) -> None:
+        raise RuntimeError("tab for " + phone_number)
+
+    code, _ = _run(
+        FakeTransport(_forecast(500)),
+        "--once",
+        environ=NO_NOTIFIER,
+        whatsapp_web=broken,
+    )
+    assert code == 1
+    assert PHONE not in caplog.text

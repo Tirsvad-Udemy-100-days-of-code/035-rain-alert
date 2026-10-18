@@ -15,4 +15,7 @@ services:
     image: rain-alert:latest
     container_name: rain-alert
     env_file: config.env
+    environment:
+      # A container has no browser for pywhatkit, so it sends through Twilio.
+      NOTIFIER: twilio
     restart: unless-stopped

@@ -19,10 +19,11 @@ Koden er delt i lag; afhængighederne peger indad (infrastruktur til applikation
 | `weather_params` (`lat`, `lon`, `appid`, `cnt`) | `OpenWeatherClient.weather_params`, `OpenWeatherForecastClient.weather_params` |
 | `requests.get(...)` | `UrllibTransport` (standardbiblioteket) |
 | løkke over `weather[0]["id"] < 700` | `will_rain` i `domain/rain.py` |
-| `twilio` `client.messages.create(...)` | `TwilioWhatsAppNotifier` (Twilios REST-API med `urllib`) |
-| en tidsplan på PythonAnywhere eller GitHub Actions | `DailyScheduler` i Docker-containeren |
+| `pywhatkit.sendwhatmsg(...)` | `PywhatkitNotifier` (standard; `sendwhatmsg_instantly`) |
+| `twilio` `client.messages.create(...)` | `TwilioWhatsAppNotifier` (valgfri; Twilios REST-API med `urllib`) |
+| en tidsplan på PythonAnywhere eller GitHub Actions | Windows Opgavestyring eller `DailyScheduler` |
 | nøgler i `os.environ.get(...)` | `Settings` læst fra `config.env` og miljøet |
 
 ## Forløb
 
-`main()` læser indstillingerne, bygger den vejrkilde, som `FORECAST_API` angiver, og notifikatoren, og `run_rain_alert` beder kilden om de næste 12 timer. `will_rain` afgør det; hvis der forventes regn, sender notifikatoren præcis én besked.
+`main()` læser indstillingerne, bygger den vejrkilde, som `FORECAST_API` angiver, og den notifikator, som `NOTIFIER` angiver, og `run_rain_alert` beder kilden om de næste 12 timer. `will_rain` afgør det; hvis der forventes regn, sender notifikatoren præcis én besked.

@@ -1,8 +1,10 @@
 """Tests of the dry-run notifier and the Twilio WhatsApp notifier."""
 
+import importlib
 import io
 from collections.abc import Mapping
 from datetime import time
+from types import SimpleNamespace
 
 import pytest
 
@@ -10,7 +12,9 @@ from rain_alert.application.errors import NotificationError
 from rain_alert.infrastructure.http import HttpStatusError, NetworkError
 from rain_alert.infrastructure.notifiers import (
     DryRunNotifier,
+    PywhatkitNotifier,
     TwilioWhatsAppNotifier,
+    pywhatkit_send,
     twilio_notifier_from_settings,
 )
 from rain_alert.infrastructure.settings import Settings, SettingsError
@@ -140,3 +144,77 @@ def test_missing_twilio_settings_are_named() -> None:
 def test_refusal_with_json_but_no_message_is_still_clear() -> None:
     with pytest.raises(NotificationError, match="no explanation given"):
         _notifier(FakePoster(HttpStatusError(400, "[]"))).send("x")
+
+
+class RecordingSender:
+    def __init__(self, error: Exception | None = None) -> None:
+        self.error = error
+        self.calls: list[tuple[str, str]] = []
+
+    def __call__(self, phone_number: str, message: str) -> None:
+        self.calls.append((phone_number, message))
+        if self.error is not None:
+            raise self.error
+
+
+def test_pywhatkit_notifier_sends_once_to_the_number() -> None:
+    sender = RecordingSender()
+    PywhatkitNotifier(RECIPIENT, sender).send("Take an umbrella")
+    assert sender.calls == [(RECIPIENT, "Take an umbrella")]
+
+
+def test_pywhatkit_notifier_accepts_a_whatsapp_prefixed_number() -> None:
+    sender = RecordingSender()
+    PywhatkitNotifier(f"whatsapp:{RECIPIENT}", sender).send("x")
+    assert sender.calls[0][0] == RECIPIENT
+
+
+def test_number_without_country_code_is_refused_without_sending() -> None:
+    sender = RecordingSender()
+    with pytest.raises(NotificationError, match="PHONENUMBER") as caught:
+        PywhatkitNotifier("0123456789", sender).send("x")
+    assert sender.calls == []
+    assert "0123456789" not in str(caught.value)
+
+
+def test_failed_send_is_a_notification_error_without_the_number() -> None:
+    sender = RecordingSender(RuntimeError("could not reach " + RECIPIENT))
+    with pytest.raises(NotificationError) as caught:
+        PywhatkitNotifier(RECIPIENT, sender).send("x")
+    assert "RuntimeError" in str(caught.value)
+    assert RECIPIENT not in str(caught.value)
+
+
+def test_notification_error_of_the_sender_is_passed_on() -> None:
+    sender = RecordingSender(NotificationError("not installed"))
+    with pytest.raises(NotificationError, match="not installed"):
+        PywhatkitNotifier(RECIPIENT, sender).send("x")
+
+
+def test_missing_pywhatkit_package_is_explained(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def refuse(name: str) -> None:
+        raise ImportError(name)
+
+    monkeypatch.setattr(importlib, "import_module", refuse)
+    with pytest.raises(NotificationError, match="whatsapp"):
+        pywhatkit_send(RECIPIENT, "x")
+
+
+def test_pywhatkit_is_called_with_the_waiting_times(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[dict[str, object]] = []
+    fake = SimpleNamespace(sendwhatmsg_instantly=lambda **kwargs: calls.append(kwargs))
+    monkeypatch.setattr(importlib, "import_module", lambda name: fake)
+    pywhatkit_send(RECIPIENT, "x")
+    assert calls == [
+        {
+            "phone_no": RECIPIENT,
+            "message": "x",
+            "wait_time": 15,
+            "tab_close": True,
+            "close_time": 3,
+        }
+    ]

@@ -1,5 +1,7 @@
 """Notifiers: the dry-run notifier and the Twilio WhatsApp notifier."""
 
+import importlib
+from collections.abc import Callable
 from typing import TextIO
 
 from rain_alert import constants
@@ -29,6 +31,73 @@ class DryRunNotifier:
         @param message The text that would have been sent.
         """
         self._stream.write(f"[dry run] would send: {message}\n")
+
+
+def pywhatkit_send(phone_number: str, message: str) -> None:
+    """@brief Send a WhatsApp message with pywhatkit through WhatsApp Web.
+
+    pywhatkit opens WhatsApp Web in the default browser of this machine, which
+    must be logged in, and presses send. The package is the optional extra
+    ``whatsapp`` and is imported only here.
+
+    @param phone_number The recipient in international format, starting with ``+``.
+    @param message The text to send.
+    @throws NotificationError When pywhatkit is not installed.
+    """
+    try:
+        pywhatkit = importlib.import_module("pywhatkit")
+    except ImportError as error:
+        raise NotificationError(
+            "pywhatkit is not installed; run: python -m pip install -e .[whatsapp]"
+        ) from error
+    pywhatkit.sendwhatmsg_instantly(
+        phone_no=phone_number,
+        message=message,
+        wait_time=constants.WHATSAPP_WEB_WAIT_SECONDS,
+        tab_close=True,
+        close_time=constants.WHATSAPP_WEB_CLOSE_SECONDS,
+    )
+
+
+class PywhatkitNotifier:
+    """@brief A Notifier that sends a WhatsApp message through WhatsApp Web."""
+
+    def __init__(
+        self,
+        phone_number: str,
+        send: Callable[[str, str], None] = pywhatkit_send,
+    ) -> None:
+        """@brief Create the notifier.
+
+        @param phone_number The recipient in international format, with ``+``.
+        @param send Sends one message; by default pywhatkit.
+        """
+        self._phone_number: str = phone_number.strip().removeprefix(
+            constants.WHATSAPP_PREFIX
+        )
+        self._send: Callable[[str, str], None] = send
+
+    def send(self, message: str) -> None:
+        """@brief Send one WhatsApp message.
+
+        @param message The text to send.
+        @throws NotificationError When the number has no country code, pywhatkit
+            is missing or the send fails; the text never contains the number.
+        """
+        if not self._phone_number.startswith("+"):
+            raise NotificationError(
+                f"Setting {constants.ENV_PHONE_NUMBER} must start with + and the "
+                "country code."
+            )
+        try:
+            self._send(self._phone_number, message)
+        except NotificationError:
+            raise
+        except Exception as error:  # third-party browser automation raises many types
+            raise NotificationError(
+                f"WhatsApp Web could not send the message ({type(error).__name__}); "
+                "is the browser logged in to WhatsApp Web?"
+            ) from error
 
 
 class TwilioWhatsAppNotifier:

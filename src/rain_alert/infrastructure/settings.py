@@ -25,6 +25,7 @@ class Settings:
     @param alert_time Local time of the daily check.
     @param timezone IANA time zone name of the alert time.
     @param forecast_api OpenWeather forecast to use: ``onecall4`` or ``forecast25``.
+    @param notifier How the alert is sent: ``pywhatkit`` or ``twilio``.
     @param twilio_account_sid Twilio account SID, when configured.
     @param twilio_auth_token Twilio auth token (secret), when configured.
     @param twilio_whatsapp_from Twilio WhatsApp sender number, when configured.
@@ -37,6 +38,7 @@ class Settings:
     alert_time: time
     timezone: str
     forecast_api: str = constants.DEFAULT_FORECAST_API
+    notifier: str = constants.DEFAULT_NOTIFIER
     twilio_account_sid: str | None = None
     twilio_auth_token: str | None = None
     twilio_whatsapp_from: str | None = None
@@ -165,6 +167,22 @@ def _forecast_api(raw: str) -> str:
     return name
 
 
+def _notifier(raw: str) -> str:
+    """@brief Read the name of the notifier to use.
+
+    @param raw The text, possibly empty.
+    @return The name, by default ``pywhatkit``.
+    @throws SettingsError When the name is unknown.
+    """
+    name = raw.strip().lower() or constants.DEFAULT_NOTIFIER
+    if name not in (constants.NOTIFIER_PYWHATKIT, constants.NOTIFIER_TWILIO):
+        raise SettingsError(
+            f"Setting {constants.ENV_NOTIFIER} must be "
+            f"{constants.NOTIFIER_PYWHATKIT} or {constants.NOTIFIER_TWILIO}."
+        )
+    return name
+
+
 def _api_key(variables: Mapping[str, str], forecast_api: str) -> str:
     """@brief Get the API key for the chosen forecast.
 
@@ -202,6 +220,7 @@ def load_settings(variables: Mapping[str, str]) -> Settings:
         timezone=_optional(variables, constants.ENV_TIMEZONE)
         or constants.DEFAULT_TIMEZONE,
         forecast_api=forecast_api,
+        notifier=_notifier(variables.get(constants.ENV_NOTIFIER, "")),
         twilio_account_sid=_optional(variables, constants.ENV_TWILIO_ACCOUNT_SID),
         twilio_auth_token=_optional(variables, constants.ENV_TWILIO_AUTH_TOKEN),
         twilio_whatsapp_from=_optional(variables, constants.ENV_TWILIO_WHATSAPP_FROM),
