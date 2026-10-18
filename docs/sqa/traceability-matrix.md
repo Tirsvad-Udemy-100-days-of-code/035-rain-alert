@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | TM-001 |
-| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [ADR-0001] |
+| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [ADR-0001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-012 (Python source of MIL-002) | [4716b8d] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | [2c661f6] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-013 (Python source of MIL-003) and RC-014 (Compose file) | [2c661f6] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-015 (MIL-005), RC-016 (ADR-0001 amendment) and RC-017 (dictionary amendment) | pending |
 
 ---
 
@@ -24,10 +24,10 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | --- | --- | --- | --- | --- | --- | --- |
 | [BC-001] | BC | en | it | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001] | [RC-001] |
 | [SA-001] | SA | en | it | [BC-001] | [PP-001], [GOV-001] | [RC-002] |
-| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004] | - (no checklist for the Project Plan) |
-| [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-003] |
+| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | - (no checklist for the Project Plan) |
+| [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-017] |
 | [GOV-001] | GOV | en | it | [BC-001], [SA-001] | [TM-001] | [RC-004] |
-| [ADR-0001] | ADR | - | - | [BC-001] | source code under `src/` | [RC-005] |
+| [ADR-0001] | ADR | - | - | [BC-001], [MIL-005] | source code under `src/` | [RC-016] |
 | [MIL-001] | MIL | en | it | [BC-001], [PP-001] | source code, configuration and README | [RC-006] |
 | [MIL-002] | MIL | en | it | [BC-001], [PP-001], [MIL-001] | source code and tests of the domain, application and settings | [RC-007] |
 | [MIL-003] | MIL | en | it | [BC-001], [PP-001], [MIL-002] | source code, tests, Dockerfile and Compose file of the alert | [RC-008] |
@@ -37,6 +37,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | Python source of MIL-002 (`domain`, `application`, `infrastructure` settings and OpenWeather client) | PY | - | - | [ADR-0001], [MIL-002] | - | [RC-012] |
 | Python source of MIL-003 (`application` use case, notifiers, scheduler, `main`) | PY | - | - | [ADR-0001], [MIL-003] | - | [RC-013] |
 | `compose.yaml` and `Dockerfile` | YML | - | - | [ADR-0001], [MIL-003] | - | [RC-014] |
+| [MIL-005] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | source code and tests of the forecast fallback | [RC-015] |
 
 ## Coverage Notes
 
@@ -56,6 +57,7 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [MIL-002]: ../milestones/mil-002-rain-check-core.md
 [MIL-003]: ../milestones/mil-003-whatsapp-alert-and-container.md
 [MIL-004]: ../milestones/mil-004-documentation-and-wiki.md
+[MIL-005]: ../milestones/mil-005-forecast-api-fallback.md
 [RC-001]: ./reviews/rc-001-business-case.md
 [RC-002]: ./reviews/rc-002-stakeholder-analysis.md
 [RC-003]: ./reviews/rc-003-dictionary.md
@@ -74,3 +76,6 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-013]: ./reviews/rc-013-py-mil-003.md
 [RC-014]: ./reviews/rc-014-compose-file.md
 [2c661f6]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/2c661f6f3db29c96b4cf1a482f5565d80f6c72d9
+[RC-015]: ./reviews/rc-015-mil-005.md
+[RC-016]: ./reviews/rc-016-adr-0001-amendment.md
+[RC-017]: ./reviews/rc-017-dictionary-amendment.md

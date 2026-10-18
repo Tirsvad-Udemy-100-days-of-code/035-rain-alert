@@ -11,7 +11,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Forecast period in the definition of the hourly forecast; added forecast API | pending |
 
 ---
 
@@ -23,7 +24,7 @@ Maps each Product Owner (PO) term to its professional IT term for Rain Alert. Th
 
 | PO term | Language | IT term | Definition | Used as PO term in | Used as IT term in |
 | --- | --- | --- | --- | --- | --- |
-| hourly forecast | en | HourlyForecast | The expected weather for one hour, with its weather condition ids. | BC, MIL | PY |
+| hourly forecast | en | HourlyForecast | The expected weather for one forecast period (one hour for One Call 4.0, three hours for the 2.5 forecast), with its weather condition ids. | BC, MIL | PY |
 | weather condition id | en | condition_id | The OpenWeather number that names a kind of weather; a number below 700 means thunderstorm, drizzle, rain or snow. | BC, MIL | PY |
 | rain expected | en | will_rain | The decision that at least one of the next 12 hourly forecasts has a weather condition id below 700. | BC, MIL | PY |
 | forecast source | en | ForecastSource | The service that supplies the hourly forecast, here the OpenWeather One Call 4.0 API. | BC, MIL | PY |
@@ -34,6 +35,7 @@ Maps each Product Owner (PO) term to its professional IT term for Rain Alert. Th
 | WhatsApp message | en | TwilioWhatsAppNotifier | The alert sent as a WhatsApp message through the Twilio sandbox. | BC, MIL | PY |
 | dry run | en | DryRunNotifier | A run that prints the message instead of sending it. | BC, MIL | PY |
 | alert time | en | alert_time | The local time of day at which the daily check runs, default 07:00. | BC, MIL | PY |
+| forecast API | en | forecast_api | The setting that names the OpenWeather endpoint used: `onecall4` or `forecast25`. | BC, MIL | PY |
 | daily scheduler | en | Scheduler | The loop that waits for the alert time and runs the rain check once a day. | BC, MIL | PY |
 | configuration file | en | config.env | The git-ignored file with the API key, phone number, location and Twilio values, passed to the container as environment variables. | BC, MIL | PY |
 | settings | en | Settings | The values read from the environment for one run. | BC, MIL | PY |
