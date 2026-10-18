@@ -89,3 +89,11 @@ DEFAULT_ALERT_TIME: Final[str] = "07:00"
 DEFAULT_TIMEZONE: Final[str] = "Asia/Kuala_Lumpur"
 
 ## @}
+
+## @name Web requests
+## @{
+
+## @brief Longest part of a service's error answer kept in an error message.
+MAX_ERROR_BODY_CHARS: Final[int] = 300
+
+## @}
