@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
 
 ---
 
@@ -98,3 +98,4 @@ A No-Go on a gateway stops the chain: later windows move by the days needed to f
 [MIL-002]: ./milestones/mil-002-rain-check-core.md
 [MIL-003]: ./milestones/mil-003-whatsapp-alert-and-container.md
 [MIL-004]: ./milestones/mil-004-documentation-and-wiki.md
+[728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36

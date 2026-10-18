@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | pending |
+| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
 
 ---
 
@@ -63,3 +63,4 @@ Go — every criterion passes; condition 1 was closed when S01 accepted the plan
 
 [DICT-001]: ../../dictionary.md
 [QC-DICT-001]: ../../../framework/qc/artifacts/qc-dictionary.md
+[728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
