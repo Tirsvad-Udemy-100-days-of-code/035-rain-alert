@@ -3,7 +3,7 @@
 #
 # Purpose:  run ruff check, ruff format --check and mypy --strict on the tracked
 #           Python files under src/ with the shared reusable workflow of
-#           TirSystem/github-action (guides/quality-checks.md there). It changes
+#           TirSystem/git-workflows (guides/quality-checks.md there). It changes
 #           no file and writes nothing outside the repository.
 # Triggers: a pull request or a push to main that changes Python files, the
 #           project configuration or this file.
@@ -42,7 +42,7 @@ jobs:
     name: Python quality checks
     permissions:
       contents: read
-    uses: TirSystem/github-action/.gitea/workflows/quality-checks.yml@v2.1.1
+    uses: TirSystem/git-workflows/.gitea/workflows/quality-checks.yml@v2.1.1
     with:
       languages: python
       working-directory: src
