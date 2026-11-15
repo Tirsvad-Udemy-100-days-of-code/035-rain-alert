@@ -13,7 +13,7 @@
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: pywhatkit is the default WhatsApp notifier on S01's machine, Twilio is optional (objectives O3 and O5, scope, assumptions, risks) | [6434347] |
-| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added objective O10, success criterion SC11, a scope item, an out-of-scope item, a risk and constraints for the baseline milestone MIL-007; changed SC10 to seven milestones; set the domain to education; reviewed in autonomous mode, not independent | pending |
+| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added objective O10, success criterion SC11, a scope item, an out-of-scope item, a risk and constraints for the baseline milestone MIL-007; changed SC10 to seven milestones; set the domain to education; reviewed in autonomous mode, not independent | [55da30a] |
 
 ---
 
@@ -166,3 +166,4 @@ Proceed — the scope is small, the risks have mitigations and every objective i
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
 [MIL-007]: ./milestones/mil-007-framework-baseline.md
 [PP-001]: ./project-plan.md
+[55da30a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/55da30a61855e3748c7e8396003d29be99dd2f8d

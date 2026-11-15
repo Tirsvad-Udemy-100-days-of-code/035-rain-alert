@@ -11,7 +11,7 @@
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | [6434347] |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | [12a9d13] |
-| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added MIL-007, the review records RC-025 to RC-028 and the wiki; set the reviewed rows of BC-001 and PP-001 and the domain of the changed rows to education (autonomous, not independent) | pending |
+| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added MIL-007, the review records RC-025 to RC-028 and the wiki; set the reviewed rows of BC-001 and PP-001 and the domain of the changed rows to education (autonomous, not independent) | [55da30a] |
 
 ---
 
@@ -110,3 +110,4 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [RC-027]: ./reviews/rc-027-milestone-007.md
 [RC-028]: ./reviews/rc-028-wiki.md
 [TM-001]: ./traceability-matrix.md
+[55da30a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/55da30a61855e3748c7e8396003d29be99dd2f8d

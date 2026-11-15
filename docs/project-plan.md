@@ -13,7 +13,7 @@
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added gateway MIL-005 (forecast API fallback) before MIL-004 after the live run showed HTTP 401 on One Call 4.0 | [5da8060] |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added gateway MIL-006 (pywhatkit notifier) before MIL-004 content is brought up to date | [6434347] |
-| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added the baseline gateway (MIL-007) with its schedule row, scope coverage, dependency, risk and Gantt entries; linked the first six gateways to their milestones; noted that the third Open Issue is superseded by the fourth and fifth, and that the quality workflow now uses the shared git-workflows on the git host; set the domain to education; reviewed in autonomous mode, not independent | pending |
+| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added the baseline gateway (MIL-007) with its schedule row, scope coverage, dependency, risk and Gantt entries; linked the first six gateways to their milestones; noted that the third Open Issue is superseded by the fourth and fifth, and that the quality workflow now uses the shared git-workflows on the git host; set the domain to education; reviewed in autonomous mode, not independent | [55da30a] |
 
 ---
 
@@ -134,3 +134,4 @@ A No-Go on a gateway stops the chain: later windows move by the days needed to f
 [MIL-007]: ./milestones/mil-007-framework-baseline.md
 [RC-026]: ./sqa/reviews/rc-026-project-plan-baseline.md
 [M-550]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/milestones/550
+[55da30a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/55da30a61855e3748c7e8396003d29be99dd2f8d
