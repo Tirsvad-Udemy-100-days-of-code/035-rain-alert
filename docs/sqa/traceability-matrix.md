@@ -4,13 +4,14 @@
 | Key | Value |
 | --- | --- |
 | ID | TM-001 |
-| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [ADR-0001] |
+| CrossReference | [BC-001], [SA-001], [PP-001], [DICT-001], [GOV-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [ADR-0001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-020 (MIL-006), RC-021 (BC-001 amendment), RC-022 (ADR-0001) and RC-023 (dictionary) | [6434347] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | [12a9d13] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Added RC-024 (Python source of MIL-006) | [12a9d13] |
+| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added MIL-007, the review records RC-025 to RC-028 and the wiki; set the reviewed rows of BC-001 and PP-001 and the domain of the changed rows to education (autonomous, not independent) | [55da30a] |
 
 ---
 
@@ -22,16 +23,16 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 
 | Artifact Instance | Type | Language | Domain | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- | --- | --- |
-| [BC-001] | BC | en | it | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001] | [RC-021] |
+| [BC-001] | BC | en | education | - | [SA-001], [PP-001], [DICT-001], [GOV-001], [ADR-0001], [MIL-007] | [RC-025], [RC-021] |
 | [SA-001] | SA | en | it | [BC-001] | [PP-001], [GOV-001] | [RC-002] |
-| [PP-001] | PP | en | it | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] | - (no checklist for the Project Plan) |
+| [PP-001] | PP | en | education | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [RC-026] |
 | [DICT-001] | DICT | en | it | [BC-001], [SA-001] | - | [RC-023] |
 | [GOV-001] | GOV | en | it | [BC-001], [SA-001] | [TM-001] | [RC-004] |
 | [ADR-0001] | ADR | - | - | [BC-001], [MIL-005] | source code under `src/` | [RC-022] |
 | [MIL-001] | MIL | en | it | [BC-001], [PP-001] | source code, configuration and README | [RC-006] |
 | [MIL-002] | MIL | en | it | [BC-001], [PP-001], [MIL-001] | source code and tests of the domain, application and settings | [RC-007] |
 | [MIL-003] | MIL | en | it | [BC-001], [PP-001], [MIL-002] | source code, tests, Dockerfile and Compose file of the alert | [RC-008] |
-| [MIL-004] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | README, screenshots and wiki | [RC-009] |
+| [MIL-004] | MIL | en | it | [BC-001], [PP-001], [MIL-003] | README, screenshots and wiki, [MIL-007] | [RC-009] |
 | Python source of MIL-001 (`src/rain_alert`, `tests`) | PY | - | - | [ADR-0001], [MIL-001] | - | [RC-010] |
 | CI workflow `.gitea/workflows/quality.yml` | WF | - | - | [MIL-001] | - | [RC-011] |
 | Python source of MIL-002 (`domain`, `application`, `infrastructure` settings and OpenWeather client) | PY | - | - | [ADR-0001], [MIL-002] | - | [RC-012] |
@@ -41,11 +42,18 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 | Python source of MIL-005 (`OpenWeatherForecastClient`, `FORECAST_API`) | PY | - | - | [ADR-0001], [MIL-005] | - | [RC-018] |
 | CI workflow `.gitea/workflows/publish-wiki.yml` | WF | - | - | [MIL-004] | - | [RC-019] |
 | [MIL-006] | MIL | en | it | [BC-001], [PP-001], [MIL-005] | source code, tests and documentation of the pywhatkit notifier | [RC-020] |
+| [MIL-007] | MIL | en | education | [BC-001], [PP-001], [MIL-006] | - | [RC-027] |
 | Python source of MIL-006 (`PywhatkitNotifier`, `NOTIFIER`) | PY | - | - | [ADR-0001], [MIL-006] | - | [RC-024] |
+| Wiki | Wiki | en, da, ms | education | [BC-001], [MIL-007] | - | [RC-028] |
 
 ## Coverage Notes
 
 - No instance exists yet of KPI, BMC, BPMN, UCD, US, UC, DM, SSD, OC, SD, DCD or ERD: the requirements come from the course assignment and S01's changes (see [BC-001]) and the design reference is [ADR-0001].
+- [PP-001] was accepted without a QC checklist; it is reviewed against `QC-PP-001` for the first time in [RC-026].
+- The wiki (`docs/wiki/`) is documentation, not an artifact with an ID or a Language and Domain row; it has its own review record, [RC-028].
+- The project workflow `.gitea/workflows/publish-wiki.yml` that MIL-004 added was removed in pull request #47, when the repository moved to the shared workflows of the git host; [RC-019] reviewed it while it existed. `.gitea/workflows/quality.yml` is still reviewed there.
+- The domain of [BC-001], [PP-001], [MIL-007] and the wiki is `education` since [MIL-007]. The other documents keep the domain `it` they were accepted with; a change of their domain would need a new review of each (see the Open Issues of [PP-001]).
+- [MIL-007] changes no source file, so the source code is not reviewed again.
 - In Upstream `-` means foundational; in Downstream `-` means nothing is built on it yet; in Last Reviewed `-` means no `RC-*` exists.
 - Source code is reviewed against `QC-PY-001` before each pull request; those records are added to this matrix as they are written.
 
@@ -96,3 +104,10 @@ Tracks backward/forward links between artifact instances so that the Business Ca
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
 [RC-024]: ./reviews/rc-024-py-mil-006.md
 [12a9d13]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/12a9d134f6a7e8700a1c21b1cea85ec7f2c59e84
+[MIL-007]: ../milestones/mil-007-framework-baseline.md
+[RC-025]: ./reviews/rc-025-business-case-baseline.md
+[RC-026]: ./reviews/rc-026-project-plan-baseline.md
+[RC-027]: ./reviews/rc-027-milestone-007.md
+[RC-028]: ./reviews/rc-028-wiki.md
+[TM-001]: ./traceability-matrix.md
+[55da30a]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/55da30a61855e3748c7e8396003d29be99dd2f8d

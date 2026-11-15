@@ -43,7 +43,7 @@ Where the course script went:
 
 There are no runtime dependencies. The wiki ([English][wiki], [Dansk][wiki-da], [Bahasa Melayu][wiki-ms]) explains the design in more detail.
 
-Tests are in `tests/`, project documents in `docs/`. The code has Doxygen comments and a `Doxyfile`.
+Tests are in `tests/`, project documents in `docs/`. The code has Doxygen comments and a `Doxyfile`. The SQA and QC framework is the git submodule `framework/`; `.editorconfig` holds the editor settings of its baseline and `.env.example` lists placeholders for the git host tokens that the framework scripts read (the program never reads it).
 
 ## 📋 Requirements
 
@@ -173,7 +173,7 @@ The tests use fakes and need no network. To see coverage: `python -m pytest --co
 
 ## 📄 License
 
-GNU Affero General Public License v3, see [LICENSE][license].
+The project is licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see the [LICENSE][license] file.
 
 ## 🔗 Links
 
@@ -187,7 +187,6 @@ The documents a newcomer needs, in reading order.
 
 | Document | What it tells you |
 | --- | --- |
-| [AGENTS.md][agents] | The rules AI agents follow in this repository |
 | [Business Case][BC-001] | Why the project exists, its scope and success criteria |
 | [Stakeholder Analysis][SA-001] | Who is involved; the stakeholder IDs used for owners and reviewers |
 | [Project Plan][PP-001] | The gateways and their schedule |
@@ -196,8 +195,6 @@ The documents a newcomer needs, in reading order.
 | [Domain dictionary][DICT-001] | The PO terms and the IT terms |
 | [Traceability matrix][TM-001] | How the artifacts link and when each was last reviewed |
 | [Governance][GOV-001] | The review workflow, who decides and how disputes escalate |
-| [Framework README][framework-readme] | The framework this project uses |
-| [Framework changelog][framework-changelog] | What changed in each framework release |
 
 ---
 
@@ -212,7 +209,6 @@ The documents a newcomer needs, in reading order.
 [wiki]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki
 [wiki-da]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki/Home-da
 [wiki-ms]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki/Home-ms
-[agents]: ./AGENTS.md
 [BC-001]: ./docs/business-case.md
 [SA-001]: ./docs/stakeholder-analysis.md
 [PP-001]: ./docs/project-plan.md
@@ -221,5 +217,3 @@ The documents a newcomer needs, in reading order.
 [DICT-001]: ./docs/dictionary.md
 [TM-001]: ./docs/sqa/traceability-matrix.md
 [GOV-001]: ./docs/sqa/governance.md
-[framework-readme]: ./framework/README.md
-[framework-changelog]: ./framework/CHANGELOG.md

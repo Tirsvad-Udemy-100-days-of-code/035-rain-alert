@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,8 +9,14 @@ description = "Daily WhatsApp alert when rain is expected, with OpenWeather and 
 readme = "README.md"
 requires-python = ">=3.13"
 license = "AGPL-3.0-only"
+authors = [{ name = "Jens Tirsvad Nielsen" }]
 license-files = ["LICENSE"]
 dependencies = []
+
+[project.urls]
+Repository = "https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert"
+Documentation = "https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/wiki"
+"Issue tracker" = "https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/issues"
 
 [project.optional-dependencies]
 whatsapp = [

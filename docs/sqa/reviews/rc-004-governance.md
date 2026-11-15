@@ -64,6 +64,6 @@ Go — every criterion passes; condition 1 was closed when S01 accepted the plan
 
 ---
 
-[GOV-001]: ./governance.md
+[GOV-001]: ../governance.md
 [QC-GOV-001]: ../../../framework/qc/artifacts/qc-governance.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36

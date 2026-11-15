@@ -65,3 +65,4 @@ Go — every criterion passes; condition 1 was closed when S01 accepted the plan
 [BC-001]: ../../business-case.md
 [QC-BC-001]: ../../../framework/qc/artifacts/qc-business-case.md
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
+[RC-001]: ./rc-001-business-case.md
