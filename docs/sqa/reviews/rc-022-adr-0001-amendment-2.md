@@ -53,3 +53,4 @@ Go — every criterion passes. Mode: autonomous, not independent.
 [ADR-0001]: ../../adr/adr-0001-architecture-and-dependencies.md
 [QC-ADR-001]: ../../../framework/qc/artifacts/qc-adr.md
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
+[RC-016]: ./rc-016-adr-0001-amendment.md

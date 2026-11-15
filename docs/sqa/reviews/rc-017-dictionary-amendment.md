@@ -64,3 +64,4 @@ Go — every criterion passes; condition 1 was closed when S01 accepted the plan
 [DICT-001]: ../../dictionary.md
 [QC-DICT-001]: ../../../framework/qc/artifacts/qc-dictionary.md
 [5da8060]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/5da8060e2000533a95fed0b380e9ba2aa8b25be2
+[RC-003]: ./rc-003-dictionary.md

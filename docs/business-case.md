@@ -4,15 +4,16 @@
 | Key | Value |
 | --- | --- |
 | ID | BC-001 |
-| CrossReference | [SA-001] |
+| CrossReference | [SA-001], [MIL-007] |
 | Language | en |
-| Domain | it |
+| Domain | education |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Initial version | [728ff3e] |
-| 2026-10-18 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: pywhatkit is the default WhatsApp notifier on S01's machine, Twilio is optional (objectives O3 and O5, scope, assumptions, risks) | [6434347] |
+| 2026-10-18 | Deprecated | Jens Tirsvad Nielsen | AI as stand-in for S01 | Amendment: pywhatkit is the default WhatsApp notifier on S01's machine, Twilio is optional (objectives O3 and O5, scope, assumptions, risks) | [6434347] |
+| 2026-11-16 | Accepted | Jens Tirsvad Nielsen | S01 (AI as stand-in) | Added objective O10, success criterion SC11, a scope item, an out-of-scope item, a risk and constraints for the baseline milestone MIL-007; changed SC10 to seven milestones; set the domain to education; reviewed in autonomous mode, not independent | pending |
 
 ---
 
@@ -45,6 +46,7 @@ A small, well-documented reference solution lets S02 compare their own solutions
 | O7 | A newcomer can create a local `.venv`, upgrade pip, run the program (also as a dry run) and the tests from the README alone. |
 | O8 | The repository has a description, topics, CI workflows, a README with a screenshot and a wiki in English, Danish and Bahasa Malaysia. |
 | O9 | Every step is traceable: each gateway is a reviewed milestone with tasks as issues, delivered by one pull request. |
+| O10 | The finished project is brought to the common baseline of the framework: the adopted framework release, the wiki sidebar in the framework's shape, complete licence metadata and review records for every changed document ([MIL-007]). |
 
 ## Scope
 
@@ -59,6 +61,7 @@ A small, well-documented reference solution lets S02 compare their own solutions
 - README from the framework template, with run and test instructions and a screenshot.
 - Wiki pages in English, Danish and Bahasa Malaysia, with screenshots.
 - Repository description and topics, and the CI workflows from `TirSystem/github-action` that fit the project (quality checks, wiki publishing; the GitHub metadata mirror is delivered to the repository by the host).
+- The baseline milestone [MIL-007]: the framework release, the wiki sidebar in the framework's shape, the README without the private framework files in its appendix, licence and project URL metadata, `.editorconfig`, `.env.example`, review records and a current traceability matrix. It changes no behaviour of the program.
 
 ### Out of Scope
 
@@ -67,6 +70,7 @@ A small, well-documented reference solution lets S02 compare their own solutions
 - Several locations, several recipients, snow or wind rules, message templates and a retry queue.
 - Packaging for PyPI, and runtime dependencies (the standard library is enough).
 - Capturing a WhatsApp chat screenshot from S01's phone: only S01 can supply it.
+- Any change to `src/` or `tests/` in the baseline milestone [MIL-007].
 
 ## Expected Benefits
 
@@ -98,7 +102,8 @@ The project supports S01's goal of completing the bootcamp with portfolio-qualit
 | SC7 | Setup from README | A fresh clone reaches a dry run in 5 commands or fewer | Dry run of the README steps |
 | SC8 | Runtime dependencies | 0 third-party runtime dependencies | `dependencies = []` in `pyproject.toml` |
 | SC9 | Languages | Wiki has 3 languages with the same page set | Page listing and `framework/scripts/check-languages.sh` |
-| SC10 | Traceability | 4 of 4 milestones `Accepted` with a `Go` review; every task closed by a pull request | Milestone documents and issue list |
+| SC10 | Traceability | 7 of 7 milestones `Accepted` with a `Go` review; every task closed by a pull request | Milestone documents and issue list |
+| SC11 | The baseline milestone is done (O10) | The wiki sidebar has the framework's shape, `framework/scripts/check-readme.sh`, `framework/scripts/check-languages.sh` and `framework/scripts/check-editorconfig.sh` exit with code 0, 100 % of the continuous integration (CI) checks of the pull request of [MIL-007] pass | Files in `docs/wiki/`, the script exit codes and the pull request status on the git host |
 
 ## Risks
 
@@ -112,6 +117,7 @@ The project supports S01's goal of completing the bootcamp with portfolio-qualit
 | A secret reaches git, an image or a screenshot | Disclosure | `config.env` and `.env` are git-ignored and `.dockerignore`d, the container receives them at run time only, and screenshots show no values |
 | Danish or Bahasa Malaysia text contains errors | S02 and S03 are misled | English is authoritative, translations follow it page by page, S01 is asked to check Danish, and Bahasa Malaysia is flagged as unchecked until a reader has checked it |
 | Docker Desktop is not available in the build session | The image cannot be built or run here | The Dockerfile and Compose file are checked by a linter and by reading; the image is built on S01's machine and the result is reported |
+| The documents of the baseline milestone [MIL-007] change documents that were accepted earlier, and the AI stand-in for S01 reviews them | Medium: a defect is missed because the review is not independent | Every review record of the baseline says `Mode: autonomous, not independent`, the program and its tests are not changed, and the end-of-run summary lists the reviews for challenge |
 
 ## Assumptions
 
@@ -129,6 +135,8 @@ The project supports S01's goal of completing the bootcamp with portfolio-qualit
 - Folder structure `src/`, `tests/`, `docs/`; Doxygen comments in the source and a `Doxyfile`.
 - One pull request per milestone, from a branch; a reviewer other than the author merges (in autonomous mode the AI merges after green checks), and the AI never bypasses a required check.
 - Target window: 2026-10-18 to 2026-10-25.
+- The baseline milestone [MIL-007] starts 2026-11-16 and is finished within one week, by 2026-11-23. For that milestone only, an AI stand-in for S01 reviews and accepts the changed documents.
+- The Product Owner (PO) language is English and the PO domain is education (it was IT until [MIL-007]; the documents that [MIL-007] does not change keep the domain `it`, see the Open Issues of [PP-001]).
 
 ## Cost–Benefit Assessment
 
@@ -156,3 +164,5 @@ Proceed — the scope is small, the risks have mitigations and every objective i
 [SA-001]: ./stakeholder-analysis.md
 [728ff3e]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/728ff3e9e195f722540d4959f4f0035b7af37c36
 [6434347]: https://git.tirsystem.com/Tirsvad-Udemy-100-days-of-code/035-rain-alert/commit/64343473499f718679459bbf4b580073ffafa370
+[MIL-007]: ./milestones/mil-007-framework-baseline.md
+[PP-001]: ./project-plan.md
